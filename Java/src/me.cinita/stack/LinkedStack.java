@@ -1,5 +1,7 @@
 package me.cinita.stack;
 
+import me.cinita.Node;
+
 public class LinkedStack<E> implements Stack<E> {
 
     private Node<E> top;
@@ -19,17 +21,4 @@ public class LinkedStack<E> implements Stack<E> {
         top = top.next;
         return date;
     }
-
-    static class Node<E> {
-        E data;
-        Node<E> next;
-
-        static <E> Node<E> create(E data, Node<E> next) {
-            Node<E> n = new Node<>();
-            n.data = data;
-            n.next = next;
-            return n;
-        }
-    }
-
 }
