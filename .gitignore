@@ -1,0 +1,8 @@
+# Local IDEA workspace
+.idea/
+
+# IDEA project and module files
+*.iml
+
+# Java class files
+*.class
