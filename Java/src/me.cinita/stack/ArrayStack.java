@@ -4,9 +4,16 @@ import java.util.Arrays;
 
 public class ArrayStack<E> implements Stack<E> {
 
-    private static final int DEFAULT_CAP = 16;
-    private Object[] data = new Object[DEFAULT_CAP];
+    private Object[] data;
     private int top;
+
+    public ArrayStack(int capacity) {
+        if (capacity < 1) {
+            capacity = 1;
+        }
+        data = new Object[capacity];
+        top = -1;
+    }
 
     @Override
     public void push(E item) {
