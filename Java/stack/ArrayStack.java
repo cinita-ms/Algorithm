@@ -1,5 +1,3 @@
-package me.cinita.stack;
-
 import java.util.Arrays;
 
 public class ArrayStack<E> implements Stack<E> {

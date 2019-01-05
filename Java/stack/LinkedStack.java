@@ -1,7 +1,3 @@
-package me.cinita.stack;
-
-import me.cinita.Node;
-
 public class LinkedStack<E> implements Stack<E> {
 
     private Node<E> top;

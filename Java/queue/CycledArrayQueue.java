@@ -1,5 +1,3 @@
-package me.cinita.queue;
-
 public class CycledArrayQueue<E> implements Queue<E> {
 
     private Object[] items;
