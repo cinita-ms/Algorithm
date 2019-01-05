@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Sort {
 
@@ -43,7 +41,7 @@ public class Sort {
         }
     }
 
-    // best O(n), worst O(n^2), average O(n^2).
+    // best O(n^2), worst O(n^2), average O(n^2).
     public static void selectionSort(int[] src) {
         if (src == null || src.length <= 1)
             return;
@@ -78,6 +76,5 @@ public class Sort {
         int[] s3 = Arrays.copyOf(src, src.length);
         selectionSort(s3);
         System.out.println(Arrays.toString(s3));
-
     }
 }
