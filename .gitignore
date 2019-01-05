@@ -1,8 +1,4 @@
-# Local IDEA workspace
 .idea/
-
-# IDEA project and module files
+.vscode/
 *.iml
-
-# Java class files
 *.class
