@@ -109,8 +109,39 @@ public class Sort {
     // Merge sort end.
 
     // Quick sort start.
-    public static void quickSort() {
+    // best & average O(nlogn), worst O(n^2).
+    public static void quickSort(int[] src) {
+        if (src == null || src.length <= 1)
+            return;
 
+        partitionRecursion(src, 0, src.length - 1);
+    }
+
+    private static void partitionRecursion(int[] a, int start, int end) {
+        if (start >= end)
+            return;
+
+        int pivot = partition(a, start, end);
+        partitionRecursion(a, start, pivot - 1);
+        partitionRecursion(a, pivot + 1, end);
+    }
+
+    public static int partition(int[] a, int start, int end) {
+        int target = a[end];
+        int p = start;
+        for (int i = start; i < end; ++i) {
+            if (a[i] < target) {
+                int temp = a[i];
+                a[i] = a[p];
+                a[p++] = temp;
+            }
+        }
+
+        int temp = a[end];
+        a[end] = a[p];
+        a[p] = temp;
+
+        return p;
     }
     // Quick sort end.
 
@@ -133,5 +164,9 @@ public class Sort {
         int[] s4 = Arrays.copyOf(src, src.length);
         mergeSort(s4);
         System.out.println(Arrays.toString(s4));
+
+        int[] s5 = Arrays.copyOf(src, src.length);
+        quickSort(s5);
+        System.out.println(Arrays.toString(s5));
     }
 }
