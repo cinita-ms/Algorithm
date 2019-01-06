@@ -6,7 +6,7 @@ public class ArrayQueue<E> implements Queue<E> {
 
     public ArrayQueue(int fixedCapacity) {
         if (fixedCapacity < 1) {
-            throw new IllegalArgumentException("Fixed capacity must > 1.");
+            throw new IllegalArgumentException("Fixed capacity must > 0.");
         }
 
         items = new Object[fixedCapacity];

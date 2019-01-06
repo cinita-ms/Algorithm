@@ -6,7 +6,7 @@ public class CycledArrayQueue<E> implements Queue<E> {
 
     public CycledArrayQueue(int fixedCapacity) {
         if (fixedCapacity < 1) {
-            throw new IllegalArgumentException("Fixed capacity must > 1.");
+            throw new IllegalArgumentException("Fixed capacity must > 0.");
         }
 
         items = new Object[fixedCapacity];
