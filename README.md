@@ -18,5 +18,5 @@ The algorithm implemented by different language.
 - search
 1. [binary search](https://github.com/cinita/Algorithm/blob/master/Java/search/Search.java)
 - tree
-1. [binary tree](https://github.com/cinita/Algorithm/blob/master/Java/tree/Tree.java)
+1. [binary tree](https://github.com/cinita/Algorithm/blob/master/Java/tree/BinaryTree.java)
 2. [binary search tree](https://github.com/cinita/Algorithm/blob/master/Java/tree/BinarySEarchTree.java)
