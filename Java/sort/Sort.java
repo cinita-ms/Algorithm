@@ -131,9 +131,13 @@ public class Sort {
         int p = start;
         for (int i = start; i < end; ++i) {
             if (a[i] < target) {
-                int temp = a[i];
-                a[i] = a[p];
-                a[p++] = temp;
+                if (i == p) {
+                    ++p;
+                } else {
+                    int temp = a[i];
+                    a[i] = a[p];
+                    a[p++] = temp;
+                }
             }
         }
 
