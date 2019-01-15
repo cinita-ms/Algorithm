@@ -6,12 +6,16 @@ public class LinkedQueue<E> implements Queue<E> {
     @Override
     public boolean enqueue(E item) {
         Node<E> node = new Node<>();
+        node.data = item;
         if (head == null) {
             head = node;
         }
-        node.data = E;
-        tail.next = node;
-        tail = node;
+        if (tail == null) {
+            tail = node;
+        } else {
+            tail.next = node;
+            tail = node;
+        }
         return true;
     }
 
