@@ -74,7 +74,7 @@ public class Sort {
         if (begin >= end)
             return;
 
-        int mid = begin + (end - begin) / 2;
+        int mid = begin + (end - begin) >>> 2;
         mergeRecursion(a, begin, mid);
         mergeRecursion(a, mid + 1, end);
 
