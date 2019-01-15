@@ -26,6 +26,9 @@ public class ArrayStack<E> implements Stack<E> {
     @SuppressWarnings("unchecked")
     @Override
     public E pop() {
+        if (top == -1) {
+            return null;
+        }
         E result = (E) items[top];
         items[top--] = null;
         return result;
