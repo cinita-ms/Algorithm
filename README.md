@@ -14,9 +14,9 @@ The algorithm implemented by different language.
 - recursion
 1. [walk step question](https://github.com/cinita/Algorithm/blob/master/Java/recursion/WalkStep.java)
 - sort
-1. [common sort](https://github.com/cinita/Algorithm/blob/master/Java/sort/Sort.java)
+1. [Common sort](https://github.com/cinita/Algorithm/blob/master/Java/sort/Sort.java)
 - search
-1. [binary search](https://github.com/cinita/Algorithm/blob/master/Java/search/Search.java)
+1. [Binary search](https://github.com/cinita/Algorithm/blob/master/Java/search/Search.java)
 - tree
-1. [binary tree](https://github.com/cinita/Algorithm/blob/master/Java/tree/BinaryTree.java)
-2. [binary search tree](https://github.com/cinita/Algorithm/blob/master/Java/tree/BinarySearchTree.java)
+1. [Binary tree](https://github.com/cinita/Algorithm/blob/master/Java/tree/BinaryTree.java)
+2. [Binary search tree](https://github.com/cinita/Algorithm/blob/master/Java/tree/BinarySearchTree.java)
