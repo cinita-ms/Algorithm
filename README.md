@@ -12,7 +12,7 @@ The algorithm implemented by different language.
 2. [LinkedQueue](https://github.com/cinita/Algorithm/blob/master/Java/queue/LinkedQueue.java)
 3. [CycledArrayQueue](https://github.com/cinita/Algorithm/blob/master/Java/queue/CycledArrayQueue.java)
 - recursion
-1. [walk step question](https://github.com/cinita/Algorithm/blob/master/Java/recursion/WalkStep.java)
+1. [Walk step question](https://github.com/cinita/Algorithm/blob/master/Java/recursion/WalkStep.java)
 - sort
 1. [Common sort](https://github.com/cinita/Algorithm/blob/master/Java/sort/Sort.java)
 - search
