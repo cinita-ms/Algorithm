@@ -1,5 +1,4 @@
 public class ArrayQueue<E> implements Queue<E> {
-
     private Object[] items;
     private int head;
     private int tail;
@@ -40,6 +39,7 @@ public class ArrayQueue<E> implements Queue<E> {
         if (head == tail) {
             return null;
         }
+        
         E result = items[head];
         items[head++] = null;
         return result;

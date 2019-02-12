@@ -1,7 +1,6 @@
 import java.util.Arrays;
 
 public class ArrayStack<E> implements Stack<E> {
-
     private Object[] items;
     private int top;
 
