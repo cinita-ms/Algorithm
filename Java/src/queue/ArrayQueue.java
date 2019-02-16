@@ -39,8 +39,8 @@ public class ArrayQueue<E> implements Queue<E> {
         if (head == tail) {
             return null;
         }
-        
-        E result = items[head];
+
+        E result = (E) items[head];
         items[head++] = null;
         return result;
     }

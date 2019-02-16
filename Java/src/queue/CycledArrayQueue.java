@@ -30,7 +30,7 @@ public class CycledArrayQueue<E> implements Queue<E> {
             return null;
         }
 
-        E result = items[head];
+        E result = (E) items[head];
         items[head++] = null;
         return result;
     }
