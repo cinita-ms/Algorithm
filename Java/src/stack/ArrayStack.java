@@ -21,7 +21,8 @@ public class ArrayStack<E> implements Stack<E> {
         }
 
         if (top == items.length - 1) {
-            items = Arrays.copyOf(items, items.length * 2);
+            int half = (items.length + 1) >>> 1;
+            items = Arrays.copyOf(items, items.length + half);
             push(item);
         } else {
             items[++top] = item;
