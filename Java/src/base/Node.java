@@ -5,7 +5,7 @@ public class Node<E> {
     public Node<E> next;
 
     public Node() {
-        // Empty impl.
+        // Empty.
     }
 
     public Node(E data, Node<E> next) {
