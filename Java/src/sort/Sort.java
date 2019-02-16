@@ -4,12 +4,19 @@ import base.Utils;
 
 public class Sort {
 
-    // | Type      | Time(best, worst, average) | Sorted in place | Stability |
-    // | Bubble    | O(n), O(n^2), O(n^2)       | Yes             | Yes       |
-    // | Insertion | O(n), O(n^2), O(n^2)       | Yes             | Yes       |
-    // | Selection | O(n^2), O(n^2), O(n^2)     | Yes             | No        |
-    // | Merge     |
-    // | Quick     |
+    // |------------------------------------------------------------------------|
+    // | Type      | Time(best, worst, average)   | Sorted in place | Stability |
+    // |------------------------------------------------------------------------|
+    // | Bubble    | O(n), O(n^2), O(n^2)         | Yes             | Yes       |
+    // |------------------------------------------------------------------------|
+    // | Insertion | O(n), O(n^2), O(n^2)         | Yes             | Yes       |
+    // |------------------------------------------------------------------------|
+    // | Selection | O(n^2), O(n^2), O(n^2)       | Yes             | No        |
+    // |------------------------------------------------------------------------|
+    // | Merge     | O(nlogn), O(nlogn), O(nlogn) | No, O(n)        | Yes       |
+    // |------------------------------------------------------------------------|
+    // | Quick     | O(nlogn), O(nlogn), O(n^2)   | Yes             | Yes       |
+    // |------------------------------------------------------------------------|
 
     public static void bubbleSort(int[] src) {
         if (src == null || src.length <= 1) return;
@@ -63,7 +70,6 @@ public class Sort {
     }
 
     // Merge sort begin.
-    // all O(nlogn).
     public static void mergeSort(int[] src) {
         if (src == null || src.length <= 1)
             return;
@@ -75,17 +81,18 @@ public class Sort {
         if (begin >= end)
             return;
 
-        int mid = begin + (end - begin) >>> 2;
+        int mid = begin + (end - begin) >>> 1;
         mergeRecursion(a, begin, mid);
         mergeRecursion(a, mid + 1, end);
 
         merge(a, begin, mid, end);
     }
 
-    // O(n).
-    private static void merge(int[] a, int start, int mid, int end) {
-        int[] temp = new int[end - start + 1];
-        int i = start;
+    private static void merge(int[] a, int begin, int mid, int end) {
+        assert begin < end;
+
+        int[] temp = new int[end - begin + 1];
+        int i = begin;
         int j = mid + 1;
         int k = 0;
         while (i <= mid && j <= end) {
@@ -104,13 +111,12 @@ public class Sort {
 
         k = 0;
         while (k < temp.length) {
-            a[start++] = temp[k++];
+            a[begin++] = temp[k++];
         }
     }
     // Merge sort end.
 
     // Quick sort start.
-    // best & average O(nlogn), worst O(n^2).
     public static void quickSort(int[] src) {
         if (src == null || src.length <= 1)
             return;
@@ -118,34 +124,28 @@ public class Sort {
         partitionRecursion(src, 0, src.length - 1);
     }
 
-    private static void partitionRecursion(int[] a, int start, int end) {
-        if (start >= end)
+    private static void partitionRecursion(int[] a, int begin, int end) {
+        if (begin >= end)
             return;
 
-        int pivot = partition(a, start, end);
-        partitionRecursion(a, start, pivot - 1);
+        int pivot = partition(a, begin, end);
+        partitionRecursion(a, begin, pivot - 1);
         partitionRecursion(a, pivot + 1, end);
     }
 
-    public static int partition(int[] a, int start, int end) {
+    private static int partition(int[] a, int begin, int end) {
         int target = a[end];
-        int p = start;
-        for (int i = start; i < end; ++i) {
+        int p = begin;
+        for (int i = begin; i < end; ++i) {
             if (a[i] < target) {
-                if (i == p) {
-                    ++p;
-                } else {
-                    int temp = a[i];
-                    a[i] = a[p];
-                    a[p++] = temp;
+                if (i != p) {
+                    Utils.swap(a, i, p);
                 }
+                ++p;
             }
         }
 
-        int temp = a[end];
-        a[end] = a[p];
-        a[p] = temp;
-
+        Utils.swap(a, end, p);
         return p;
     }
     // Quick sort end.
