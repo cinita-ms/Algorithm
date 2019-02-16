@@ -1,3 +1,5 @@
+import base.Node;
+
 public class BinarySearchTree {
 
     private Node tree;

@@ -1,3 +1,5 @@
+package queue;
+
 public class CycledArrayQueue<E> implements Queue<E> {
     private Object[] items;
     private int head;
@@ -15,11 +17,16 @@ public class CycledArrayQueue<E> implements Queue<E> {
 
     @Override
     public boolean enqueue(E item) {
+        if (item == null) {
+            throw new IllegalArgumentException("item == null.");
+        }
+
         if ((tail + 1) % items.length == head) {
             return false;
         }
 
-        items[tail++] = item;
+        items[tail] = item;
+        tail = ++tail % items.length;
         return true;
     }
 
@@ -31,7 +38,8 @@ public class CycledArrayQueue<E> implements Queue<E> {
         }
 
         E result = (E) items[head];
-        items[head++] = null;
+        items[head] = null;
+        head = ++head % items.length;
         return result;
     }
 }

@@ -1,3 +1,5 @@
+package queue;
+
 public class ArrayQueue<E> implements Queue<E> {
     private Object[] items;
     private int head;
@@ -15,6 +17,10 @@ public class ArrayQueue<E> implements Queue<E> {
 
     @Override
     public boolean enqueue(E item) {
+        if (item == null) {
+            throw new IllegalArgumentException("item == null.");
+        }
+
         // The tail pointer has moved to the end position + 1.
         if (tail == items.length) {
             // Have no space to insert item.

@@ -1,3 +1,5 @@
+package stack;
+
 import java.util.Arrays;
 
 public class ArrayStack<E> implements Stack<E> {
@@ -14,6 +16,10 @@ public class ArrayStack<E> implements Stack<E> {
 
     @Override
     public void push(E item) {
+        if (item == null) {
+            throw new IllegalArgumentException("item == null.");
+        }
+
         if (top == items.length - 1) {
             items = Arrays.copyOf(items, items.length * 2);
             push(item);
@@ -28,6 +34,7 @@ public class ArrayStack<E> implements Stack<E> {
         if (top == -1) {
             return null;
         }
+
         E result = (E) items[top];
         items[top--] = null;
         return result;

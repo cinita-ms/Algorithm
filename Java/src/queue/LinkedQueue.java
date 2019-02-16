@@ -1,20 +1,28 @@
+package queue;
+
+import base.Node;
+
 public class LinkedQueue<E> implements Queue<E> {
     private Node<E> head;
     private Node<E> tail;
 
     @Override
     public boolean enqueue(E item) {
+        if (item == null) {
+            throw new IllegalArgumentException("item == null.");
+        }
+
         Node<E> node = new Node<>();
         node.data = item;
+
+        // For empty queue.
         if (head == null) {
-            head = node;
-        }
-        if (tail == null) {
-            tail = node;
+            head = tail = node;
         } else {
             tail.next = node;
             tail = node;
         }
+
         return true;
     }
 

@@ -1,3 +1,5 @@
+import base.Node;
+
 public class BinaryTree {
 
     // All O(n).

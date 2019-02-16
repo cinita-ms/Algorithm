@@ -1,3 +1,7 @@
+package linked;
+
+import base.Node;
+
 public class Linked {
 
     /**
@@ -22,7 +26,7 @@ public class Linked {
     }
 
     /**
-     * Whether the list is cycled.
+     * Whether the linked list is cycled.
      */
     public static boolean isCycled(Node list) {
         if (list == null) {
@@ -43,7 +47,7 @@ public class Linked {
     }
 
     /**
-     * Find the midddle node in list.
+     * Find the middle node in linked list.
      */
     public static Node findMiddle(Node list) {
         if (list == null) {
@@ -61,7 +65,7 @@ public class Linked {
     }
 
     /**
-     * Whether the char list is a palindrome.
+     * Whether the char linked list is a palindrome.
      */
     public static boolean isPalindrome(Node list) {
         return false;
