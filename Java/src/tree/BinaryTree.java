@@ -1,39 +1,38 @@
-import base.Node;
+package tree;
 
 public class BinaryTree {
 
-    // All O(n).
     // Previous order.
-    public static void prevOrder(Node root) {
+    public static <E extends Comparable<E>> void prevOrder(BTNode<E> root) {
         if (root == null)
             return;
 
-        p(root);
+        print(root);
         prevOrder(root.left);
         prevOrder(root.right);
     }
 
     // Middle order.
-    public static void midOrder(Node root) {
+    public static <E extends Comparable<E>> void midOrder(BTNode<E> root) {
         if (root == null)
             return;
 
         midOrder(root.left);
-        p(root);
+        print(root);
         midOrder(root.right);
     }
 
     // Post order.
-    public static void postOrder(Node root) {
+    public static <E extends Comparable<E>> void postOrder(BTNode<E> root) {
         if (root == null)
             return;
 
         postOrder(root.left);
         postOrder(root.right);
-        p(root);
+        print(root);
     }
 
-    private static void p(Node n) {
+    private static void print(BTNode n) {
         if (n != null) {
             System.out.println(n.data);
         }

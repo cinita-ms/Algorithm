@@ -1,3 +1,5 @@
+package search;
+
 public class Search {
 
     public static int binarySearch(int[] src, int target) {
@@ -10,9 +12,9 @@ public class Search {
 
         while (low <= high) {
             int mid = low + (high - low) >> 1;
-            if (a[mid] == target) {
+            if (src[mid] == target) {
                 return mid;
-            } else if (a[mid] < target) {
+            } else if (src[mid] < target) {
                 low = mid + 1;
             } else {
                 high = mid - 1;
@@ -20,9 +22,5 @@ public class Search {
         }
 
         return -1;
-    }
-
-    public static void main(String[] args) {
-
     }
 }
