@@ -236,6 +236,30 @@ public class CommonAlgorithm {
         return end;
     }
 
+    // 翻转二叉树
+    public void invertBinaryTree(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        invertBinaryTree(root.left);
+        invertBinaryTree(root.right);
+    }
+
+    // 二叉树最深度
+    public int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        } else {
+            int left_height = maxDepth(root.left);
+            int right_height = maxDepth(root.right);
+            return Math.max(left_height, right_height) + 1;
+        }
+    }
+
     // 验证二叉查找树
     double last = -Double.MAX_VALUE;
 
@@ -251,7 +275,6 @@ public class CommonAlgorithm {
         }
         return false;
     }
-
 
     // 验证路径总和
     public boolean hasPathSum(TreeNode root, int sum) {
