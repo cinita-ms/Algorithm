@@ -70,4 +70,28 @@ public class Linked {
     public static boolean isPalindrome(Node list) {
         return false;
     }
+
+    public static Node mergeTwoLists(Node list1, Node list2) {
+        Node dummy = new Node();
+        Node tail = dummy;
+        while (list1 != null && list2 != null) {
+            if (list1.data < list2.data) {
+                tail.next = list1;
+                tail = list1;
+                list1 = list1.next;
+            } else {
+                tail.next = list2;
+                tail = list2;
+                list2 = list2.next;
+            }
+        }
+
+        if (list1 != null) {
+            tail.next = list1;
+        } else {
+            tail.next = list2;
+        }
+
+        return dummy.next;
+    }
 }
