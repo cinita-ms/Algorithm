@@ -41,7 +41,8 @@ public class DynamicProgramming {
         if (finalP < 0) return;
 
         for (int i = n - 1; i >= 1; --i) {
-            if (finalP - items[i] >= 0 && states[i - 1][finalP - items[i]]) {
+            if (finalP - items[i] >= 0 &&
+                    (states[i - 1][finalP - items[i]] || states[i - 1][finalP])) {
                 Utils.print(items[i] + " ");
                 finalP -= items[i];
             }
