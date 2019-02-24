@@ -38,6 +38,7 @@ public class Heap<E extends Comparable<E>> {
         E top = (E) items[1];
         items[1] = items[size];
         items[size--] = null;
+        heapify(1);
         return top;
     }
 
