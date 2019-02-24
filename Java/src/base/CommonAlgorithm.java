@@ -17,7 +17,7 @@ public class CommonAlgorithm {
         for (int i = 0; i < a.length - 2; ++i) {
             if (i > 0 && a[i] == a[i - 1]) continue;
 
-            int left = i - 1;
+            int left = i + 1;
             int right = a.length - 1;
             int target = -a[i];
 
