@@ -236,11 +236,48 @@ public class CommonAlgorithm {
         return end;
     }
 
+    // 翻转字符串
+    public static String reverse(String src) {
+        if (src == null || src.length() < 2) {
+            return src;
+        }
+
+        char[] chars = src.toCharArray();
+        int i = 0, j = src.length() - 1;
+        while (i < j) {
+            Utils.swap(chars, i++, j--);
+        }
+
+        return new String(chars);
+    }
+
+    // 翻转字符串里面的单词
+    public static String reverseWords(String src) {
+        if (src == null) {
+            return null;
+        }
+
+        String[] words = src.split(" ");
+        if (words.length < 1) {
+            return null;
+        }
+
+        StringBuilder target = new StringBuilder(words.length - 1);
+        if (words.length - 1 > 0) {
+            for (int i = words.length - 1; i >= 0; ++i) {
+                target.append(" ").append(words[i]);
+            }
+        }
+
+        return target.toString();
+    }
+
     // 翻转二叉树
     public void invertBinaryTree(TreeNode root) {
         if (root == null) {
             return;
         }
+
         TreeNode temp = root.left;
         root.left = root.right;
         root.right = temp;
@@ -253,26 +290,26 @@ public class CommonAlgorithm {
     public int maxDepth(TreeNode root) {
         if (root == null) {
             return 0;
-        } else {
-            int left_height = maxDepth(root.left);
-            int right_height = maxDepth(root.right);
-            return Math.max(left_height, right_height) + 1;
         }
+
+        return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
     }
 
     // 验证二叉查找树
-    double last = -Double.MAX_VALUE;
+    int last = Integer.MIN_VALUE;
 
     public boolean isValidBST(TreeNode root) {
         if (root == null) {
             return true;
         }
+
         if (isValidBST(root.left)) {
             if (last < root.val) {
                 last = root.val;
                 return isValidBST(root.right);
             }
         }
+
         return false;
     }
 
@@ -281,9 +318,11 @@ public class CommonAlgorithm {
         if (root == null) {
             return false;
         }
+
         if (root.left == null && root.right == null) {
             return sum - root.val == 0;
         }
+
         return hasPathSum(root.left, sum - root.val)
                 || hasPathSum(root.right, sum - root.val);
     }
