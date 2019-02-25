@@ -1,8 +1,38 @@
-package dynamic_programming;
+package AlgorithmThinking;
 
 import base.Utils;
 
 public class DynamicProgramming {
+
+    public static int zeroOneBackpack(int[] items, int w) {
+        boolean[][] status = new boolean[items.length][w + 1];
+        status[0][0] = true;
+        status[0][items[0]] = true;
+
+        for (int i = 0; i < items.length - 1; ++i) {
+            // Don't add.
+            for (int j = 0; j <= w; ++j) {
+                if (status[i - 1][j]) {
+                    status[i][j] = true;
+                }
+            }
+
+            // Add.
+            for (int j = 0; j <= w - items[i]; ++j) {
+                if (status[i - 1][j]) {
+                    status[i][j + items[i]] = true;
+                }
+            }
+        }
+
+        for (int k = w; k >= 0; --k) {
+            if (status[items.length - 1][k]) {
+                return k;
+            }
+        }
+
+        return 0;
+    }
 
     public static void double11Shopping(int[] items, int price) {
         if (items == null || items.length < 1 || price < 0) return;
