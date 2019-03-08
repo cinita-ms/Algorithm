@@ -1,4 +1,4 @@
-package AlgorithmThinking;
+package thinking;
 
 public class Backtracking {
 

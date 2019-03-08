@@ -1,4 +1,4 @@
-package AlgorithmThinking;
+package thinking;
 
 import base.Utils;
 
