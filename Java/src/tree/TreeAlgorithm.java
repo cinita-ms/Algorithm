@@ -60,4 +60,38 @@ public class TreeAlgorithm {
 
         return hasPathSum(root.left, rest) || hasPathSum(root.right, rest);
     }
+
+    // TODO: 2019-03-17  连接二叉树同一层上的结点
+
+    // 验证数组是不是二叉搜索树后序遍历的结果
+    public static boolean verifyPostOrder(int[] a) {
+        if (a == null || a.length == 1) return false;
+
+        return verifyPostOrderRecursion(a, 0, a.length - 1);
+    }
+
+    private static boolean verifyPostOrderRecursion(int[] a, int begin, int end) {
+        if (begin > end) {
+            return true;
+        }
+
+        int root = a[end];
+
+        // Find the left and right child position.
+        int i;
+        for (i = 0; i < end - 1; ++i) {
+            if (a[i] > root) break;
+        }
+
+        int j = i;
+        for (; j < end - 1; ++j) {
+            if (a[j] < root) {
+                return false;
+            }
+        }
+
+        boolean left = verifyPostOrderRecursion(a, 0, i - 1);
+        boolean right = verifyPostOrderRecursion(a, i, end - 1);
+        return left && right;
+    }
 }

@@ -65,13 +65,9 @@ public class Linked {
     }
 
     /**
-     * Whether the char linked list is a palindrome.
+     * Merge two sorted list and return the result.
      */
-    public static boolean isPalindrome(Node list) {
-        return false;
-    }
-
-    public static Node mergeTwoLists(Node list1, Node list2) {
+    public static Node mergeTwoSortedLists(Node<Integer> list1, Node<Integer> list2) {
         Node dummy = new Node();
         Node tail = dummy;
         while (list1 != null && list2 != null) {
