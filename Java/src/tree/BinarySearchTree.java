@@ -1,6 +1,7 @@
 package tree;
 
 public class BinarySearchTree<E extends Comparable<E>> {
+
     private BTNode<E> tree;
 
     public BTNode find(E data) {

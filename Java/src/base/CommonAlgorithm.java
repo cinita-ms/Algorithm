@@ -271,4 +271,22 @@ public class CommonAlgorithm {
 
         return target.toString();
     }
+
+    // 10进制 -> 8进制
+
+    public void decimal2Octal(int source) {
+        Stack<Integer> stack = new Stack<>();
+
+        while (source > 0) {
+            stack.push(source % 8);
+            source /= 8;
+        }
+
+        StringBuilder s = new StringBuilder();
+        while (stack.size() > 0) {
+            s.append(stack.pop());
+        }
+
+        Utils.println(s);
+    }
 }

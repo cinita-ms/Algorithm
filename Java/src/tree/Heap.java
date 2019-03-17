@@ -4,6 +4,7 @@ import base.Utils;
 
 @SuppressWarnings("unchecked")
 public class Heap<E extends Comparable<E>> {
+
     private Object[] items;
     private int size;
 
