@@ -77,7 +77,7 @@ public class TreeAlgorithm {
 
         int root = a[end];
 
-        // Find the left and right child position.
+        // Find the left and right child position of root.
         int i;
         for (i = 0; i < end - 1; ++i) {
             if (a[i] > root) break;

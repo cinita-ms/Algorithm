@@ -2,7 +2,7 @@ package linked;
 
 import base.Node;
 
-public class Linked {
+public class LinkedAlgorithm {
 
     /**
      * Reverse the linked list.

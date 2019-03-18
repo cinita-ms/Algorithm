@@ -3,6 +3,7 @@ package stack;
 import base.Node;
 
 public class LinkedStack<E> implements Stack<E> {
+
     private Node<E> top;
 
     @Override
@@ -11,7 +12,10 @@ public class LinkedStack<E> implements Stack<E> {
             throw new IllegalArgumentException("item == null.");
         }
 
-        top = new Node<>(item, top);
+        Node<E> temp = new Node<>();
+        temp.data = item;
+        temp.next = top;
+        top = temp;
     }
 
     @Override

@@ -1,8 +1,13 @@
 package base;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
 
 public class CommonAlgorithm {
+
+    // 对于m = n % 2^k, 等价于取n的低k位
 
     // 求三数之和
     public static List<List<Integer>> threeSum(int[] a) {
@@ -107,42 +112,6 @@ public class CommonAlgorithm {
         return a.length + 1;
     }
 
-    // 有效的括号
-    private static HashMap<Character, Character> mappings = new HashMap<>(3);
-
-    static {
-        mappings.put(')', '(');
-        mappings.put(']', '[');
-        mappings.put('}', '{');
-    }
-
-    public static boolean isValid(String s) {
-        if (s == null || s.length() < 2) {
-            return false;
-        }
-
-        Stack<Character> stack = new Stack<>();
-
-        for (int i = 0; i < s.length(); ++i) {
-            char c = s.charAt(i);
-
-            if (mappings.containsKey(c)) {
-                if (stack.empty()) {
-                    return false;
-                }
-
-                char top = stack.pop();
-                if (top != mappings.get(c)) {
-                    return false;
-                }
-            } else {
-                stack.push(c);
-            }
-        }
-
-        return stack.isEmpty();
-    }
-
     // 最长有效括号 ***
     public static int longestValidParentheses(String s) {
         if (s == null) {
@@ -178,36 +147,6 @@ public class CommonAlgorithm {
         return maxLen;
     }
 
-    // 逆波兰表达式求值
-    public int evalRPN(String[] source) {
-        Stack<Integer> stack = new Stack<>();
-        String operators = "+-*/";
-        for (String s : source) {
-            if (!operators.contains(s)) {
-                stack.push(Integer.valueOf(s));
-                continue;
-            }
-
-            int a = stack.pop();
-            int b = stack.pop();
-            switch (s) {
-                case "+":
-                    stack.push(b + a);
-                    break;
-                case "-":
-                    stack.push(b - a);
-                    break;
-                case "*":
-                    stack.push(b * a);
-                    break;
-                default:
-                    stack.push(b / a);
-                    break;
-            }
-        }
-        return stack.pop();
-    }
-
     // 开根号
     public static int sqrt(int x) {
         if (x < 0) {
@@ -236,44 +175,7 @@ public class CommonAlgorithm {
         return end;
     }
 
-    // 翻转字符串
-    public static String reverse(String src) {
-        if (src == null || src.length() < 2) {
-            return src;
-        }
-
-        char[] chars = src.toCharArray();
-        int i = 0, j = src.length() - 1;
-        while (i < j) {
-            Utils.swap(chars, i++, j--);
-        }
-
-        return new String(chars);
-    }
-
-    // 翻转字符串里面的单词
-    public static String reverseWords(String src) {
-        if (src == null) {
-            return null;
-        }
-
-        String[] words = src.split(" ");
-        if (words.length < 1) {
-            return null;
-        }
-
-        StringBuilder target = new StringBuilder(words.length - 1);
-        if (words.length - 1 > 0) {
-            for (int i = words.length - 1; i >= 0; ++i) {
-                target.append(" ").append(words[i]);
-            }
-        }
-
-        return target.toString();
-    }
-
     // 10进制 -> 8进制
-
     public void decimal2Octal(int source) {
         Stack<Integer> stack = new Stack<>();
 
