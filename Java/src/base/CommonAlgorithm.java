@@ -1,13 +1,82 @@
 package base;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class CommonAlgorithm {
 
     // 对于m = n % 2^k, 等价于取n的低k位
+
+    // 两个整数m, n，其中 m < n，输出是0 ~ n-1范围内的m个随机整数的有序序列，不允许重复
+    public static void f1(int m, int n) {
+        if (m <= 0 || m > n) return;
+
+        Random r = new Random();
+        for (int i = 0; i < n; ++i) {
+            if (r.nextInt(n - i) < m) {
+                System.out.println(i);
+                --m;
+            }
+        }
+    }
+
+    // 最大连续子向量和
+    public static int f2(int[] a) {
+        if (a == null || a.length == 0) {
+            return 0;
+        }
+
+        int max = 0;
+        for (int i = 0; i < a.length; ++i) {
+            int sum = 0;
+            for (int j = i; j < a.length; ++j) {
+                sum += a[j];
+                max = Math.max(sum, max);
+            }
+        }
+
+        return max;
+    }
+
+    public static int f3(int[] a) {
+        if (a == null || a.length == 0) {
+            return 0;
+        }
+
+        int maxEnd = 0, maxSoFar = 0;
+        for (int i : a) {
+            maxEnd = Math.max(i + maxEnd, 0);
+            maxSoFar = Math.max(maxEnd, maxSoFar);
+        }
+
+        return maxSoFar;
+    }
+
+    // 求众数，多党投票
+    public static int majorityElement(int[] a) {
+        if (a == null || a.length < 1) {
+            return -1;
+        }
+
+        if (a.length == 1) {
+            return 0;
+        }
+
+        int count = 1;
+        int maj = a[0];
+
+        for (int i = 1; i < a.length; ++i) {
+            if (a[i] == maj) {
+                count++;
+            } else {
+                count--;
+                if (count == 0) {
+                    maj = a[i + 1];
+                }
+            }
+        }
+
+        return maj;
+    }
 
     // 求三数之和
     public static List<List<Integer>> threeSum(int[] a) {
@@ -59,32 +128,6 @@ public class CommonAlgorithm {
         }
     }
 
-    // 求众数
-    public static int majorityElement(int[] a) {
-        if (a == null || a.length < 1) {
-            return -1;
-        }
-
-        if (a.length == 1) {
-            return 0;
-        }
-
-        int count = 1;
-        int maj = a[0];
-
-        for (int i = 1; i < a.length; ++i) {
-            if (a[i] == maj) {
-                count++;
-            } else {
-                count--;
-                if (count == 0) {
-                    maj = a[i + 1];
-                }
-            }
-        }
-
-        return maj;
-    }
 
     // 求缺失的第一个正数 ***
     public static int firstMissingPositive(int[] a) {
