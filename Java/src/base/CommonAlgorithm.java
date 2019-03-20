@@ -78,6 +78,72 @@ public class CommonAlgorithm {
         return maj;
     }
 
+    // 求含n个元素的集合的幂集
+    public static void f4(int[] a) {
+        if (a == null || a.length == 0) return;
+
+        Utils.println("{}");
+
+        for (int i = 1; i < Math.pow(2, a.length); ++i) {
+            Queue<Integer> queue = new LinkedList<>();
+            int m = i;
+            while (m > 0) {
+                queue.add(m % 2);
+                m = m >> 1;
+            }
+
+            StringBuilder builder = new StringBuilder("{");
+            int n = 0;
+            while (!queue.isEmpty()) {
+                int d = queue.remove();
+                if (d == 1) {
+                    builder.append(a[n]).append(", ");
+                }
+
+                ++n;
+            }
+
+            builder.replace(builder.length() - 2, builder.length(), "").append("}");
+            Utils.println(builder.toString());
+        }
+    }
+
+    // A的B次方
+    public static int f5(int a, int b) {
+        if (b == 1) {
+            return a;
+        }
+
+        return a * f5(a, b - 1);
+    }
+
+    public static int f6(int a, int b) {
+        int result = 1;
+        while (b > 0) {
+            result *= a;
+            --b;
+        }
+
+        return result;
+    }
+
+    // 10进制 -> 8进制
+    public void f7(int source) {
+        Stack<Integer> stack = new Stack<>();
+
+        while (source > 0) {
+            stack.push(source % 8);
+            source /= 8;
+        }
+
+        StringBuilder s = new StringBuilder();
+        while (stack.size() > 0) {
+            s.append(stack.pop());
+        }
+
+        Utils.println(s);
+    }
+
     // 求三数之和
     public static List<List<Integer>> threeSum(int[] a) {
         List<List<Integer>> results = new ArrayList<>();
@@ -216,22 +282,5 @@ public class CommonAlgorithm {
         }
 
         return end;
-    }
-
-    // 10进制 -> 8进制
-    public void decimal2Octal(int source) {
-        Stack<Integer> stack = new Stack<>();
-
-        while (source > 0) {
-            stack.push(source % 8);
-            source /= 8;
-        }
-
-        StringBuilder s = new StringBuilder();
-        while (stack.size() > 0) {
-            s.append(stack.pop());
-        }
-
-        Utils.println(s);
     }
 }
