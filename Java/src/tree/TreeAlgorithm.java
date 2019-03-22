@@ -2,6 +2,11 @@ package tree;
 
 import base.BSTNode;
 import base.BTNode;
+import base.TreeNode;
+import base.Utils;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class TreeAlgorithm {
 
@@ -46,7 +51,7 @@ public class TreeAlgorithm {
         return false;
     }
 
-    // 验证路径总和
+    // 验证二叉树路径总和
     public static boolean hasPathSum(BTNode<Integer> root, int sum) {
         if (root == null) {
             return false;
@@ -62,6 +67,73 @@ public class TreeAlgorithm {
     }
 
     // TODO: 2019-03-17  连接二叉树同一层上的结点
+
+    // 打印二叉树指定层的节点
+    public static <E> void printLevel1(BTNode<E> root, int level) {
+        printLevelRecursion(root, level, 1);
+    }
+
+    private static <E> void printLevelRecursion(BTNode<E> root, int level, int nextLevel) {
+        if (root == null) {
+            return;
+        }
+
+        if (nextLevel == level) {
+            Utils.println(root.data);
+        }
+
+        ++nextLevel;
+        printLevelRecursion(root.left, level, nextLevel);
+        printLevelRecursion(root.right, level, nextLevel);
+    }
+
+    public static <E> void printLevel2(BTNode<E> root, int level) {
+        if (root == null) return;
+
+        Queue<BTNode<E>> queue = new LinkedList<>();
+        int currentNodeSize = 1;
+        int nextNodeSize = 0;
+        int currentLevel = 1;
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            BTNode<E> node = queue.poll();
+
+            if (node.left != null) {
+                queue.offer(node.left);
+            }
+
+            if (node.right != null) {
+                queue.offer(node.right);
+                ++nextNodeSize;
+            }
+
+            if (currentLevel == level) {
+                Utils.println(node.data);
+                ++nextNodeSize;
+            }
+
+            --currentNodeSize;
+            if (currentNodeSize == 0) {
+                ++currentLevel;
+                currentNodeSize = nextNodeSize;
+            }
+        }
+    }
+
+    // 判断二叉树是否平衡二叉树
+    public static <E> boolean isBalancedBT(BTNode<E> root) {
+        if (root == null) {
+            return false;
+        }
+
+        int left = maxDepth(root.left);
+        int right = maxDepth(root.right);
+        if (Math.abs(left - right) > 1) {
+            return false;
+        }
+
+        return isBalancedBT(root.left) && isBalancedBT(root.right);
+    }
 
     // 验证数组是不是二叉搜索树后序遍历的结果
     public static boolean verifyPostOrder(int[] a) {

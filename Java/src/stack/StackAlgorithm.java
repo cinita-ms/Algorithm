@@ -54,6 +54,7 @@ public class StackAlgorithm {
                 stack.push(c);
                 continue;
             }
+
             int a = stack.pop();
             int b = stack.pop();
             switch (s) {
@@ -96,5 +97,29 @@ public class StackAlgorithm {
         E top = stack.pop();
         reverse(stack);
         insertAtBottom(stack, top);
+    }
+
+    // 根据入栈顺序判断正确的出栈顺序
+    public static boolean isPostOrder(int[] push, int[] pop) {
+        if (push == null || pop == null || push.length != pop.length || push.length == 0) {
+            return false;
+        }
+
+        Stack<Integer> stack = new Stack<>();
+        int nextPop = 0;
+        int nextPush = 0;
+        while (nextPop < pop.length) {
+            while (stack.isEmpty() || stack.peek() != pop[nextPop]) {
+                if (nextPush == push.length) break;
+
+                stack.push(push[nextPush++]);
+            }
+
+            if (stack.peek() == pop[nextPop++]) {
+                stack.pop();
+            }
+        }
+
+        return stack.isEmpty();
     }
 }
