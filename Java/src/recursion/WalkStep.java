@@ -1,5 +1,7 @@
 package recursion;
 
+import java.util.Arrays;
+
 public class WalkStep {
 
     private int[] results;
@@ -15,6 +17,7 @@ public class WalkStep {
 
         if (results == null) {
             results = new int[n];
+            Arrays.fill(results, 0);
         }
 
         if (results[n] > 0) {

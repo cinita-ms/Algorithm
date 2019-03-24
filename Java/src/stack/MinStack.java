@@ -28,6 +28,11 @@ public class MinStack<E extends Comparable<E>> implements stack.Stack<E> {
         if (stack.peek().compareTo(minStack.peek()) == 0) {
             minStack.pop();
         }
+
         return stack.pop();
+    }
+
+    public E getMin() {
+        return minStack.isEmpty() ? null : minStack.pop();
     }
 }

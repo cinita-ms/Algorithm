@@ -3,7 +3,10 @@ package queue;
 import base.Node;
 
 public class LinkedQueue<E> implements Queue<E> {
+
+    // The head pointer will point the start item.
     private Node<E> head;
+    // The tail pointer will point the end item.
     private Node<E> tail;
 
     @Override

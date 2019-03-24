@@ -20,18 +20,13 @@ public class StackAlgorithm {
 
         for (int i = 0; i < s.length(); ++i) {
             char c = s.charAt(i);
-
-            if (mappings.containsKey(c)) {
-                if (stack.empty()) {
-                    return false;
-                }
-
-                char top = stack.pop();
-                if (top != mappings.get(c)) {
-                    return false;
-                }
-            } else {
+            if (!mappings.containsKey(c)) {
                 stack.push(c);
+                continue;
+            }
+
+            if (stack.empty() || stack.pop() != mappings.get(c)) {
+                return false;
             }
         }
 
@@ -90,7 +85,7 @@ public class StackAlgorithm {
         stack.push(top);
     }
 
-    // 递归翻转
+    // 递归翻转栈
     public static <E> void reverse(Stack<E> stack) {
         if (stack == null || stack.isEmpty()) return;
 
@@ -109,9 +104,8 @@ public class StackAlgorithm {
         int nextPop = 0;
         int nextPush = 0;
         while (nextPop < pop.length) {
-            while (stack.isEmpty() || stack.peek() != pop[nextPop]) {
-                if (nextPush == push.length) break;
-
+            while ((stack.isEmpty() || stack.peek() != pop[nextPop])
+                    && nextPush < push.length) {
                 stack.push(push[nextPush++]);
             }
 

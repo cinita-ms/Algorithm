@@ -3,6 +3,8 @@ package stack;
 import java.util.Arrays;
 
 public class ArrayStack<E> implements Stack<E> {
+
+    private static final int INVALID_POSITION = -1;
     private Object[] items;
     private int top;
 
@@ -11,7 +13,7 @@ public class ArrayStack<E> implements Stack<E> {
             capacity = 1;
         }
         items = new Object[capacity];
-        top = -1;
+        top = INVALID_POSITION;
     }
 
     @Override
@@ -32,12 +34,12 @@ public class ArrayStack<E> implements Stack<E> {
     @SuppressWarnings("unchecked")
     @Override
     public E pop() {
-        if (top == -1) {
+        if (top == INVALID_POSITION) {
             return null;
         }
 
         E result = (E) items[top];
-        items[top--] = null;
+        items[top--] = null; // Help gc.
         return result;
     }
 }

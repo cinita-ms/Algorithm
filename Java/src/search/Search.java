@@ -23,4 +23,6 @@ public class Search {
 
         return -1;
     }
+
+    // TODO: Allow element repeated.
 }

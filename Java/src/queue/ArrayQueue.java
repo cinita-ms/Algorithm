@@ -1,8 +1,12 @@
 package queue;
 
 public class ArrayQueue<E> implements Queue<E> {
+
+    private static final int FIRST_POSITION = 0;
     private Object[] items;
+    // The head pointer will point the start item.
     private int head;
+    // The tail pointer will point the end item's next position.
     private int tail;
 
     public ArrayQueue(int fixedCapacity) {
@@ -11,8 +15,8 @@ public class ArrayQueue<E> implements Queue<E> {
         }
 
         items = new Object[fixedCapacity];
-        head = 0;
-        tail = 0;
+        head = FIRST_POSITION;
+        tail = FIRST_POSITION;
     }
 
     @Override
@@ -24,13 +28,13 @@ public class ArrayQueue<E> implements Queue<E> {
         // The tail pointer has moved to the end position + 1.
         if (tail == items.length) {
             // Have no space to insert item.
-            if (head == 0) {
+            if (head == FIRST_POSITION) {
                 return false;
             }
             // Migrate the items to first position.
             else {
-                System.arraycopy(items, head, items, 0, tail - head);
-                head = 0;
+                System.arraycopy(items, head, items, FIRST_POSITION, tail - head);
+                head = FIRST_POSITION;
                 tail -= head;
             }
         }
@@ -47,7 +51,7 @@ public class ArrayQueue<E> implements Queue<E> {
         }
 
         E result = (E) items[head];
-        items[head++] = null;
+        items[head++] = null; // Help gc.
         return result;
     }
 }

@@ -1,8 +1,12 @@
 package queue;
 
 public class CycledArrayQueue<E> implements Queue<E> {
+
+    private static final int FIRST_POSITION = 0;
     private Object[] items;
+    // The head pointer will point the start item.
     private int head;
+    // The tail pointer will point the end item's next position.
     private int tail;
 
     public CycledArrayQueue(int fixedCapacity) {
@@ -11,8 +15,8 @@ public class CycledArrayQueue<E> implements Queue<E> {
         }
 
         items = new Object[fixedCapacity];
-        head = 0;
-        tail = 0;
+        head = FIRST_POSITION;
+        tail = FIRST_POSITION;
     }
 
     @Override
@@ -21,12 +25,13 @@ public class CycledArrayQueue<E> implements Queue<E> {
             throw new IllegalArgumentException("item == null.");
         }
 
-        if ((tail + 1) % items.length == head) {
+        int nextTail = (tail + 1) % items.length;
+        if (nextTail == head) {
             return false;
         }
 
         items[tail] = item;
-        tail = ++tail % items.length;
+        tail = nextTail;
         return true;
     }
 
@@ -39,7 +44,7 @@ public class CycledArrayQueue<E> implements Queue<E> {
 
         E result = (E) items[head];
         items[head] = null;
-        head = ++head % items.length;
+        head = (head + 1) % items.length;
         return result;
     }
 }
