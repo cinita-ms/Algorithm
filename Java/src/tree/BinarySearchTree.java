@@ -1,5 +1,7 @@
 package tree;
 
+import base.BTNode;
+
 public class BinarySearchTree<E extends Comparable<E>> {
 
     private BTNode<E> tree;

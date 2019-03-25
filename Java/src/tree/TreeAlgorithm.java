@@ -2,7 +2,6 @@ package tree;
 
 import base.BSTNode;
 import base.BTNode;
-import base.TreeNode;
 import base.Utils;
 
 import java.util.LinkedList;

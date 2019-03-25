@@ -8,7 +8,7 @@ import java.util.Queue;
 
 public class BinaryTree {
 
-    // Previous, middle and post are all DFS.
+    // DFS.
     // Previous order.
     public static <E> void prevOrder(BTNode<E> root) {
         if (root == null) return;
