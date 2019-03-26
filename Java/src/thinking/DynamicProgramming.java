@@ -9,7 +9,7 @@ public class DynamicProgramming {
         status[0][0] = true;
         status[0][items[0]] = true;
 
-        for (int i = 0; i < items.length - 1; ++i) {
+        for (int i = 1, len = items.length - 1; i < len; ++i) {
             // Don't add.
             for (int j = 0; j <= w; ++j) {
                 if (status[i - 1][j]) {

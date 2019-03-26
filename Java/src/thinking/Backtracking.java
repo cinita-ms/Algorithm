@@ -7,13 +7,23 @@ public class Backtracking {
     private static int maxW;
     private static boolean[][] memo;
 
-    public static int zeroOneBackpack(int[] items, int w, int i, int cw) {
+    /**
+     * @param items Source items.
+     * @param w     The weight that the backpack can load.
+     */
+    public static int zeroOneBackpack(int[] items, int w) {
         maxW = Integer.MIN_VALUE;
         memo = new boolean[items.length][w + 1];
-        zeroOneBackpackRecur(items, w, i, cw);
+        zeroOneBackpackRecur(items, w, 0, 0);
         return maxW;
     }
 
+    /**
+     * @param items Source items.
+     * @param w     The weight that the backpack can load.
+     * @param i     Current item position.
+     * @param cw    Current weight that backpack loaded.
+     */
     private static void zeroOneBackpackRecur(int[] items, int w, int i, int cw) {
         if (cw == w || i == items.length - 1) {
             if (cw > maxW) {
