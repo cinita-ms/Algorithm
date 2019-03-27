@@ -234,29 +234,24 @@ public class CommonAlgorithm {
     public static void f4(int[] a) {
         if (a == null || a.length == 0) return;
 
-        Utils.println("[]");
-
-        for (int i = 1; i < Math.pow(2, a.length); ++i) {
+        for (int i = 0; i < Math.pow(2, a.length); ++i) {
             Queue<Integer> queue = new LinkedList<>();
             int m = i;
             while (m > 0) {
-                queue.add(m % 2);
+                queue.offer(m % 2);
                 m = m >> 1;
             }
 
-            StringBuilder builder = new StringBuilder("{");
+            List<Integer> results = new ArrayList<>(i);
             int n = 0;
             while (!queue.isEmpty()) {
                 int d = queue.remove();
                 if (d == 1) {
-                    builder.append(a[n]).append(", ");
+                    results.add(a[n++]);
                 }
-
-                ++n;
             }
 
-            builder.replace(builder.length() - 2, builder.length(), "").append("}");
-            Utils.println(builder.toString());
+            Utils.println(results);
         }
     }
 
