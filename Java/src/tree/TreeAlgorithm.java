@@ -134,6 +134,29 @@ public class TreeAlgorithm {
         return isBalancedBT(root.left) && isBalancedBT(root.right);
     }
 
+    // 二叉树中相距最远的两个节点之间的距离(二叉树每个节点的左右子树高度和的最大值)
+    private static int maxDis;
+
+    public static int maxDis(BTNode root) {
+        if (root == null) {
+            return -1;
+        }
+
+        maxDis = Integer.MIN_VALUE;
+        maxDisRecursion(root);
+        return maxDis;
+    }
+
+    private static void maxDisRecursion(BTNode root) {
+        if (root == null) return;
+
+        int left = maxDepth(root.left);
+        int right = maxDepth(root.right);
+        maxDis = Math.max(maxDis, left + right);
+        maxDisRecursion(root.left);
+        maxDisRecursion(root.right);
+    }
+
     // 验证数组是不是二叉搜索树后序遍历的结果
     public static boolean verifyPostOrder(int[] a) {
         if (a == null || a.length == 1) return false;
@@ -164,5 +187,34 @@ public class TreeAlgorithm {
         boolean left = verifyPostOrderRecursion(a, 0, i - 1);
         boolean right = verifyPostOrderRecursion(a, i, end - 1);
         return left && right;
+    }
+
+    // 在二元树中找出和为某一值的所有路径
+    public static void findPath(BTNode<Integer> root, int path) {
+        if (root == null) return;
+
+        Queue<Integer> queue = new LinkedList<>();
+        findPathRecursion(root, path, queue);
+    }
+
+    private static void findPathRecursion(BTNode<Integer> root, int path, Queue<Integer> queue) {
+        queue.add(root.data);
+        path -= root.data;
+        if (root.left == null && root.right == null) {
+            if (path == 0) {
+                Utils.println(queue.toString());
+            }
+
+            queue.remove();
+            return;
+        }
+
+        if (root.left != null) {
+            findPathRecursion(root.left, path, queue);
+        }
+
+        if (root.right != null) {
+            findPathRecursion(root.right, path, queue);
+        }
     }
 }
