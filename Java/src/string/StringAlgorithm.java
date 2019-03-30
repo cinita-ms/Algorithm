@@ -74,4 +74,29 @@ public class StringAlgorithm {
 
         return target.toString();
     }
+
+    // 指定字符串T在字符串S中的重复次数
+    public static int repeatCount(String src, String pattern) {
+        if (src == null || pattern == null || pattern.length() > src.length()) {
+            return 0;
+        }
+
+        int result = 0;
+
+        for (int i = 0, srcLen = src.length(); i < srcLen; ++i) {
+            boolean isSame = true;
+            for (int j = 0, ptLen = pattern.length(); j < ptLen; ++j) {
+                if (src.charAt(i + j) != pattern.charAt(j)) {
+                    isSame = false;
+                    break;
+                }
+            }
+
+            if (isSame) {
+                result++;
+            }
+        }
+
+        return result;
+    }
 }

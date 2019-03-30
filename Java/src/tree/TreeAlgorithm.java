@@ -6,6 +6,7 @@ import base.Utils;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class TreeAlgorithm {
 
@@ -191,30 +192,25 @@ public class TreeAlgorithm {
 
     // 在二元树中找出和为某一值的所有路径
     public static void findPath(BTNode<Integer> root, int path) {
-        if (root == null) return;
-
-        Queue<Integer> queue = new LinkedList<>();
-        findPathRecursion(root, path, queue);
+        Stack<Integer> stack = new Stack<>();
+        findPathRecursion(root, path, stack);
     }
 
-    private static void findPathRecursion(BTNode<Integer> root, int path, Queue<Integer> queue) {
-        queue.add(root.data);
+    private static void findPathRecursion(BTNode<Integer> root, int path, Stack<Integer> stack) {
+        if (root == null) return;
+
+        stack.push(root.data);
         path -= root.data;
+
         if (root.left == null && root.right == null) {
             if (path == 0) {
-                Utils.println(queue.toString());
+                Utils.println(stack.toString());
             }
-
-            queue.remove();
-            return;
+        } else {
+            findPathRecursion(root.left, path, stack);
+            findPathRecursion(root.right, path, stack);
         }
 
-        if (root.left != null) {
-            findPathRecursion(root.left, path, queue);
-        }
-
-        if (root.right != null) {
-            findPathRecursion(root.right, path, queue);
-        }
+        stack.pop();
     }
 }
