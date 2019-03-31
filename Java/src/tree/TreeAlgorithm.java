@@ -4,11 +4,36 @@ import base.BSTNode;
 import base.BTNode;
 import base.Utils;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 public class TreeAlgorithm {
+
+    // 获取二叉树根结点到指定节点的路径
+    private static boolean isFound = false;
+
+    public static <E> List<BTNode<E>> getPath(BTNode<E> root, BTNode<E> target) {
+        List<BTNode<E>> list = new ArrayList<>();
+        isFound = false;
+        printPathRecursion(root, target, list);
+        return list;
+    }
+
+    private static <E> void printPathRecursion(BTNode<E> root, BTNode<E> target, List<BTNode<E>> list) {
+        if (root == null || isFound) return;
+
+        list.add(root);
+
+        if (root == target) {
+            isFound = true;
+            Utils.println(list.toString());
+            return;
+        }
+
+        printPathRecursion(root.left, target, list);
+        printPathRecursion(root.right, target, list);
+
+        list.remove(list.size() - 1);
+    }
 
     // 翻转二叉树
     public static void reverse(BTNode root) {
@@ -65,8 +90,6 @@ public class TreeAlgorithm {
 
         return hasPathSum(root.left, rest) || hasPathSum(root.right, rest);
     }
-
-    // TODO: 2019-03-17  连接二叉树同一层上的结点
 
     // 打印二叉树指定层的节点
     public static <E> void printLevel1(BTNode<E> root, int level) {
@@ -212,5 +235,87 @@ public class TreeAlgorithm {
         }
 
         stack.pop();
+    }
+
+    // 二叉查找树转双向链表，要求不能创建任何新的结点，只调整指针的指向
+    private static BTNode head = null;
+    private static BTNode tail = null;
+
+    public static BTNode f1(BTNode node) {
+        head = null;
+        tail = null;
+        f1Recursion(node);
+        return head;
+    }
+
+    private static void f1Recursion(BTNode node) {
+        if (node == null) return;
+
+        f1Recursion(node.left);
+        convert1(node);
+        f1Recursion(node.right);
+    }
+
+    private static void convert1(BTNode node) {
+        node.left = tail;
+        if (tail == null) {
+            head = node;
+        } else {
+            tail.right = node;
+        }
+
+        tail = node;
+    }
+
+    // 求二叉树中两个节点的最近公共祖先节点
+    // 1. 该二叉树为二叉搜索树
+    public static BSTNode<Integer> f2(BSTNode<Integer> root, BSTNode<Integer> p, BSTNode<Integer> q) {
+        int rootData = root.data;
+        int pData = p.data;
+        int qData = q.data;
+        if (rootData < pData && rootData < qData) {
+            return f2(root.right, p, q);
+        } else if (rootData > pData && rootData > qData) {
+            return f2(root.left, p, q);
+        } else {
+            return root;
+        }
+    }
+
+    // 2. 该二叉树为一般二叉树
+    public static <E> BTNode<E> f3_a(BTNode<E> root, BTNode<E> p, BTNode<E> q) {
+        List<BTNode<E>> list_p = getPath(root, p);
+        List<BTNode<E>> list_q = getPath(root, q);
+        int next = 0;
+        while (next < list_p.size() && next < list_q.size()) {
+            BTNode<E> result;
+            if ((result = list_p.get(next)) == list_q.get(next)) {
+                return result;
+            }
+
+            ++next;
+        }
+
+        return null;
+    }
+
+    public static <E> BTNode<E> f3_b(BTNode<E> root, BTNode<E> p, BTNode<E> q) {
+        if (root == null || p == null || q == null) {
+            return null;
+        }
+
+        if (root == p || root == q) {
+            return root;
+        }
+
+        BTNode<E> left = f3_b(root.left, p, q);
+        BTNode<E> right = f3_b(root.right, p, q);
+        if (left == null) {
+            return right;
+        } else if (right == null) {
+            return left;
+        } else {
+            return root;
+        }
     }
 }
