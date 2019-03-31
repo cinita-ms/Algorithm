@@ -2,6 +2,9 @@ package linked;
 
 import base.Node;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LinkedAlgorithm {
 
     /**
@@ -89,5 +92,87 @@ public class LinkedAlgorithm {
         }
 
         return dummy.next;
+    }
+
+    public static class RandomListNode<E> {
+        public E data;
+        public RandomListNode<E> next;
+        public RandomListNode<E> random;
+    }
+
+    /**
+     * Clone the random list solution 1.
+     */
+    public static <E> RandomListNode<E> cloneRandomLsitNode1(RandomListNode<E> head) {
+        if (head == null) {
+            return null;
+        }
+
+        Map<RandomListNode<E>, RandomListNode<E>> map = new HashMap<>();
+        RandomListNode<E> src = head;
+        RandomListNode<E> dump = new RandomListNode<>();
+        RandomListNode<E> result = dump;
+        while (src != null) {
+            RandomListNode<E> temp = new RandomListNode<>();
+            temp.data = src.data;
+            map.put(src, temp);
+            result.next = temp;
+
+            src = src.next;
+            result = result.next;
+        }
+
+        src = head;
+        while (src != null) {
+            if (src.random == null) {
+                RandomListNode<E> target = map.get(src);
+                target.random = map.get(src.random);
+            }
+
+            src = src.next;
+        }
+
+        return dump.next;
+    }
+
+    /**
+     * Clone the random list solution 2.
+     */
+    public static <E> RandomListNode<E> cloneRandomLsitNode2(RandomListNode<E> head) {
+        if (head == null) {
+            return null;
+        }
+
+        RandomListNode<E> src = head;
+        while (src != null) {
+            RandomListNode<E> temp = new RandomListNode<>();
+            temp.data = src.data;
+            temp.next = src.next;
+            src.next = temp;
+            src = temp.next;
+        }
+
+        src = head;
+        while (src != null) {
+            if (src.random != null) {
+                src.next.random = src.random.next;
+            }
+
+            src = src.next.next;
+        }
+
+        src = head;
+        RandomListNode<E> dump = head.next;
+        RandomListNode<E> result = dump;
+        while (result.next != null) {
+            src.next = result.next;
+            src = src.next;
+
+            result.next = src.next;
+            result = result.next;
+        }
+
+        src.next = null;
+        return dump;
     }
 }

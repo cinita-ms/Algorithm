@@ -99,4 +99,6 @@ public class StringAlgorithm {
 
         return result;
     }
+
+    // TODO: 2019-03-31 BM KMP Horspool Boyer-Moore
 }
