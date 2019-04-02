@@ -33,6 +33,6 @@ public class MinStack<E extends Comparable<E>> implements stack.Stack<E> {
     }
 
     public E getMin() {
-        return minStack.isEmpty() ? null : minStack.pop();
+        return minStack.isEmpty() ? null : minStack.peek();
     }
 }

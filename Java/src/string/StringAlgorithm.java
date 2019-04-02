@@ -1,10 +1,15 @@
 package string;
 
 import base.Utils;
+import com.sun.tools.javac.util.Pair;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Stack;
 
 public class StringAlgorithm {
+
+    // TODO: 2019-03-31 BM KMP Horspool Boyer-Moore
 
     // 数组判断是否是回文.
     public static boolean isPalindromeByArray(String src) {
@@ -100,5 +105,48 @@ public class StringAlgorithm {
         return result;
     }
 
-    // TODO: 2019-03-31 BM KMP Horspool Boyer-Moore
+    // 最长重复子串LRS(Largest Repeating Substring), 获取位置和长度。
+    public static Pair<Integer, Integer> largetRepeatingSubString(String src) {
+        if (src == null || src.length() <= 1) return null;
+
+        int len = src.length();
+        Suffix[] suffixes = new Suffix[len];
+        for (int i = 0; i < len; ++i) {
+            Suffix temp = new Suffix();
+            temp.s = src.substring(i);
+            temp.p = i;
+            suffixes[i] = temp;
+        }
+
+        Arrays.sort(suffixes, Comparator.comparing(o -> o.s));
+
+        int maxLen = 0;
+        int startPosition = 0;
+        int i = 1;
+        while (i < len) {
+            String s1 = suffixes[i - 1].s;
+            String s2 = suffixes[i].s;
+
+            int j = 0;
+            for (; j < Math.min(s1.length(), s2.length()); ++j) {
+                if (s1.charAt(j) != s2.charAt(j)) {
+                    break;
+                }
+            }
+
+            if (maxLen < j) {
+                maxLen = j;
+                startPosition = i;
+            }
+
+            ++i;
+        }
+
+        return Pair.of(startPosition, maxLen);
+    }
+
+    private static class Suffix {
+        String s;
+        int p; // Keep old position.
+    }
 }
