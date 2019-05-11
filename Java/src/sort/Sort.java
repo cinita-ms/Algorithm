@@ -69,17 +69,15 @@ public class Sort {
         }
     }
 
-    // Merge sort begin.
+    // region Merge sort.
     public static void mergeSort(int[] src) {
-        if (src == null || src.length <= 1)
-            return;
+        if (src == null || src.length <= 1) return;
 
         mergeRecursion(src, 0, src.length - 1);
     }
 
     private static void mergeRecursion(int[] a, int begin, int end) {
-        if (begin >= end)
-            return;
+        if (begin >= end) return;
 
         int mid = begin + (end - begin) >>> 1;
         mergeRecursion(a, begin, mid);
@@ -114,19 +112,17 @@ public class Sort {
             a[begin++] = temp[k++];
         }
     }
-    // Merge sort end.
+    // endregion Merge sort.
 
-    // Quick sort start.
+    // region Quick sort.
     public static void quickSort(int[] src) {
-        if (src == null || src.length <= 1)
-            return;
+        if (src == null || src.length <= 1) return;
 
         partitionRecursion(src, 0, src.length - 1);
     }
 
     private static void partitionRecursion(int[] a, int begin, int end) {
-        if (begin >= end)
-            return;
+        if (begin >= end) return;
 
         int pivot = partition(a, begin, end);
         partitionRecursion(a, begin, pivot - 1);
@@ -138,9 +134,7 @@ public class Sort {
         int p = begin;
         for (int i = begin; i < end; ++i) {
             if (a[i] < target) {
-                if (i != p) {
-                    Utils.swap(a, i, p);
-                }
+                Utils.swap(a, i, p);
                 ++p;
             }
         }
@@ -148,5 +142,5 @@ public class Sort {
         Utils.swap(a, end, p);
         return p;
     }
-    // Quick sort end.
+    // endregion Quick sort.
 }

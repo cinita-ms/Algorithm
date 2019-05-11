@@ -1,7 +1,5 @@
 package recursion;
 
-import java.util.Arrays;
-
 public class WalkStep {
 
     private int[] results;
@@ -17,15 +15,12 @@ public class WalkStep {
 
         if (results == null) {
             results = new int[n];
-            Arrays.fill(results, 0);
         }
 
         if (results[n] > 0) {
             return results[n];
         }
 
-        int result = getStep(n - 1) + getStep(n - 2);
-        results[n] = result;
-        return result;
+        return results[n] = getStep(n - 1) + getStep(n - 2);
     }
 }

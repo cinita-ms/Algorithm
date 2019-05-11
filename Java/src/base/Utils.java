@@ -3,7 +3,7 @@ package base;
 public class Utils {
 
     public static void swap(int[] src, int from, int to) {
-        if (src == null || src.length - 1 < from || src.length - 1 < to) return;
+        if (src == null || src.length - 1 < from || src.length - 1 < to || from == to) return;
 
         int temp = src[from];
         src[from] = src[to];
@@ -11,7 +11,7 @@ public class Utils {
     }
 
     public static void swap(char[] src, int from, int to) {
-        if (src == null || src.length - 1 < from || src.length - 1 < to) return;
+        if (src == null || src.length - 1 < from || src.length - 1 < to || from == to) return;
 
         char temp = src[from];
         src[from] = src[to];
@@ -19,7 +19,7 @@ public class Utils {
     }
 
     public static void swap(Object[] src, int from, int to) {
-        if (src == null || src.length - 1 < from || src.length - 1 < to) return;
+        if (src == null || src.length - 1 < from || src.length - 1 < to || from == to) return;
 
         Object temp = src[from];
         src[from] = src[to];

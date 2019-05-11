@@ -1,6 +1,7 @@
 package stack;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 public class StackAlgorithm {
@@ -11,7 +12,7 @@ public class StackAlgorithm {
             return false;
         }
 
-        HashMap<Character, Character> mappings = new HashMap<>(3);
+        Map<Character, Character> mappings = new HashMap<>(3);
         mappings.put(')', '(');
         mappings.put(']', '[');
         mappings.put('}', '{');
@@ -20,13 +21,17 @@ public class StackAlgorithm {
 
         for (int i = 0; i < s.length(); ++i) {
             char c = s.charAt(i);
-            if (!mappings.containsKey(c)) {
-                stack.push(c);
-                continue;
-            }
 
-            if (stack.empty() || stack.pop() != mappings.get(c)) {
-                return false;
+            if (mappings.containsKey(c)) {
+                if (stack.isEmpty()) {
+                    return false;
+                }
+
+                if (stack.pop() != mappings.get(c)) {
+                    return false;
+                }
+            } else {
+                stack.push(c);
             }
         }
 

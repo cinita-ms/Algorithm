@@ -94,6 +94,94 @@ public class LinkedAlgorithm {
         return dummy.next;
     }
 
+    /**
+     * Delete the last target k node.
+     */
+    public static Node deleteLastTargetNode(Node list, int k) {
+        Node fast = list;
+        Node cur = null;
+        Node prev = null;
+
+        int i = 1;
+        while (fast != null) {
+            if (i == k) {
+                cur = fast;
+            }
+
+            if (i == k + 1) {
+                prev = fast;
+            }
+
+            fast = fast.next;
+
+            if (cur != null) {
+                cur = cur.next;
+            }
+
+            if (prev != null) {
+                prev = prev.next;
+            }
+
+            ++i;
+        }
+
+        if (cur == null) {
+            return list;
+        }
+
+        if (prev == null) {
+            list = list.next;
+        } else {
+            prev.next = cur.next;
+        }
+
+        return list;
+    }
+
+    /**
+     * The chars are in linked list.
+     */
+    public static boolean isPalindrome(Node<Character> list) {
+        // Step :
+        // 1. Find the middle.
+        // 2. Reverse the first half.
+        // 3. Compare the first half and the second half.
+
+        if (list == null) {
+            return true;
+        }
+
+        Node<Character> fast = list;
+        Node<Character> cur = list;
+        Node<Character> prev = null;
+
+        while (fast.next != null && fast.next.next != null) {
+            fast = fast.next.next;
+
+            Node<Character> next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+
+        if (cur == null || cur.next == null) {
+            return true;
+        }
+
+        Node<Character> first = list;
+        Node<Character> second = cur.next;
+        while (first != null && second != null) {
+            if (first.data != second.data) {
+                return false;
+            }
+
+            first = first.next;
+            second = second.next;
+        }
+
+        return true;
+    }
+
     public static class RandomListNode<E> {
         public E data;
         public RandomListNode<E> next;
