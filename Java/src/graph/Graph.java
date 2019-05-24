@@ -1,6 +1,6 @@
 package graph;
 
-import base.Utils;
+import util.Utils;
 
 import java.util.LinkedList;
 import java.util.Queue;

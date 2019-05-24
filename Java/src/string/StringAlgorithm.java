@@ -1,6 +1,6 @@
 package string;
 
-import base.Utils;
+import util.Utils;
 import com.sun.tools.javac.util.Pair;
 
 import java.util.Arrays;

@@ -1,6 +1,6 @@
 package thinking;
 
-import base.Utils;
+import util.Utils;
 
 public class DynamicProgramming {
 

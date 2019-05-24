@@ -1,6 +1,6 @@
 package tree;
 
-import base.Utils;
+import util.Utils;
 
 @SuppressWarnings("unchecked")
 public class Heap<E extends Comparable<E>> {

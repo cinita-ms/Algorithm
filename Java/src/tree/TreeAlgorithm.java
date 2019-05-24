@@ -2,7 +2,7 @@ package tree;
 
 import base.BSTNode;
 import base.BTNode;
-import base.Utils;
+import util.Utils;
 
 import java.util.*;
 

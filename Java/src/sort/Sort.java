@@ -1,6 +1,6 @@
 package sort;
 
-import base.Utils;
+import util.Utils;
 
 public class Sort {
 
