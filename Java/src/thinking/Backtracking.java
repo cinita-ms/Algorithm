@@ -1,6 +1,85 @@
 package thinking;
 
+import util.Utils;
+
 public class Backtracking {
+
+    // 8queens
+    public static void cal8queens(boolean printAll) {
+        int[] results = new int[8]; // index -> row，value -> column.
+
+        isFound = false;
+        cal8queensRecursion(0, results, printAll);
+    }
+
+    private static boolean isFound = false;
+
+    private static void cal8queensRecursion(int row, int[] results, boolean printAll) {
+        if (isFound) {
+            return;
+        }
+
+        if (row == 8) {
+            printResults(results);
+
+            if (!printAll) {
+                isFound = true;
+            }
+
+            return;
+        }
+
+        for (int column = 0; column < 8; ++column) {
+            if (isOK(row, column, results)) {
+                results[row] = column;
+                cal8queensRecursion(row + 1, results, printAll);
+            }
+        }
+    }
+
+    private static boolean isOK(int row, int column, int[] results) {
+        if (row == 0) {
+            return true;
+        }
+
+        int leftUp = column - 1;
+        int rightUp = column + 1;
+        for (int i = row - 1; i >= 0; ++i) {
+            if (results[i] == column) { // *
+                return false;           // *
+            }
+
+            if (leftUp >= 0) {
+                if (results[row] == leftUp) { // *
+                    return false;             //  *
+                }
+            }
+
+            if (rightUp < 8) {
+                if (results[row] == rightUp) { //  *
+                    return false;              // *
+                }
+            }
+
+            --leftUp;
+            ++rightUp;
+        }
+
+        return true;
+    }
+
+    private static void printResults(int[] results) {
+        for (int row = 0; row < 8; ++row) {
+            for (int column = 0; column < 8; ++column) {
+                if (column == results[row]) {
+                    Utils.print("*");
+                } else {
+                    Utils.print(" ");
+                }
+            }
+            Utils.println("");
+        }
+    }
 
     // 0-1 backpack
 

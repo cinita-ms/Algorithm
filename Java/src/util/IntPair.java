@@ -14,7 +14,7 @@ public class IntPair {
 
     @Override
     public String toString() {
-        return "Pair[" + this.first + "," + this.second + "]";
+        return "IntPair[" + this.first + "," + this.second + "]";
     }
 
     @Override
