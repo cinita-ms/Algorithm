@@ -291,4 +291,28 @@ public class CommonAlgorithm {
         Utils.println(s);
     }
 
+    // 找出重复的数字，数组长度为n, 元素为 0 ~ n-1.
+    public static int f8(int[] a) {
+        if (a == null || a.length == 0) {
+            return -1;
+        }
+
+        for (int e : a) {
+            if (e < 0) {
+                return -1;
+            }
+        }
+
+        for (int i = 0; i < a.length; ++i) {
+            while (i != a[i]) {
+                if (a[i] == a[a[i]]) {
+                    return a[i];
+                }
+
+                Utils.swap(a, i, a[i]);
+            }
+        }
+
+        return -1;
+    }
 }

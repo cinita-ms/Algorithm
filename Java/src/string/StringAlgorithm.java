@@ -1,7 +1,7 @@
 package string;
 
-import util.Utils;
 import com.sun.tools.javac.util.Pair;
+import util.Utils;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -148,5 +148,39 @@ public class StringAlgorithm {
     private static class Suffix {
         String s;
         int p; // Keep old position.
+    }
+
+    // 替换空格， "hello world" -> "hello%2bworld"
+    public static String replace(String s) {
+        if (s == null || s.length() == 0) {
+            return s;
+        }
+
+        char[] chars = s.toCharArray();
+        int count = 0;
+        for (char c : chars) {
+            if (c == ' ') {
+                count++;
+            }
+        }
+
+        if (count == 0) {
+            return s;
+        }
+
+        int old_len = chars.length;
+        int new_len = old_len + count * 2;
+        chars = Arrays.copyOf(chars, new_len);
+        for (int old_p = old_len - 1, new_p = new_len - 1; old_p >= 0; ) {
+            if (chars[old_p] != ' ') {
+                chars[new_p--] = chars[old_p--];
+            } else {
+                chars[new_p--] = 'b';
+                chars[new_p--] = '2';
+                chars[new_p--] = '%';
+            }
+        }
+
+        return new String(chars);
     }
 }

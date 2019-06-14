@@ -4,17 +4,17 @@ import util.Utils;
 
 public class Backtracking {
 
-    // 8queens
+    // 8 queens.
     public static void cal8queens(boolean printAll) {
         int[] results = new int[8]; // index -> row，value -> column.
 
         isFound = false;
-        cal8queensRecursion(0, results, printAll);
+        rCal8queens(0, results, printAll);
     }
 
     private static boolean isFound = false;
 
-    private static void cal8queensRecursion(int row, int[] results, boolean printAll) {
+    private static void rCal8queens(int row, int[] results, boolean printAll) {
         if (isFound) {
             return;
         }
@@ -32,7 +32,7 @@ public class Backtracking {
         for (int column = 0; column < 8; ++column) {
             if (isOK(row, column, results)) {
                 results[row] = column;
-                cal8queensRecursion(row + 1, results, printAll);
+                rCal8queens(row + 1, results, printAll);
             }
         }
     }
@@ -81,8 +81,7 @@ public class Backtracking {
         }
     }
 
-    // 0-1 backpack
-
+    // 0-1 backpack.
     private static int maxW;
     private static boolean[][] memo;
 
@@ -119,6 +118,54 @@ public class Backtracking {
         zeroOneBackpackRecur(items, w, i + 1, cw);
         if (cw + items[i] <= w) {
             zeroOneBackpackRecur(items, w, i + 1, cw + items[i]);
+        }
+    }
+
+    // Pattern.
+    public static class Pattern {
+
+        private final char[] pattern;
+        private boolean isMatch;
+
+        public Pattern(char[] pattern) {
+            if (pattern == null) {
+                throw new IllegalArgumentException();
+            }
+
+            this.pattern = pattern;
+        }
+
+        public boolean match(char[] text) {
+            if (text == null) {
+                return false;
+            }
+
+            isMatch = false;
+            rMatch(0, 0, text);
+            return isMatch;
+        }
+
+        private void rMatch(int iPattern, int iText, char[] text) {
+            if (isMatch) return;
+
+            if (iPattern == pattern.length) {
+                if (iText == text.length) {
+                    isMatch = true;
+                }
+
+                return;
+            }
+
+            if (iText < text.length && pattern[iPattern] == text[iText]) {
+                rMatch(iPattern + 1, iText + 1, text);
+            } else if (pattern[iPattern] == '?') {
+                rMatch(iPattern, iText + 1, text);
+                rMatch(iPattern + 1, iText + 1, text);
+            } else if (pattern[iPattern] == '*') {
+                for (int i = 0; i <= text.length - iText; ++i) {
+                    rMatch(iPattern + 1, iText + i, text);
+                }
+            }
         }
     }
 }
