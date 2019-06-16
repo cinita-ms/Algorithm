@@ -4,35 +4,38 @@ import base.BSTNode;
 import base.BTNode;
 import util.Utils;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Stack;
 
 public class TreeAlgorithm {
 
     // 获取二叉树根结点到指定节点的路径
-    private static boolean isFound = false;
+    private static boolean getPath_isFound = false;
 
-    public static <E> List<BTNode<E>> getPath(BTNode<E> root, BTNode<E> target) {
-        List<BTNode<E>> list = new ArrayList<>();
-        isFound = false;
-        printPathRecursion(root, target, list);
-        return list;
+    public static <E> Stack<BTNode<E>> getPath(BTNode<E> root, BTNode<E> target) {
+        Stack<BTNode<E>> stack = new Stack<>();
+        getPath_isFound = false;
+        printPathRecursion(root, target, stack);
+        return stack;
     }
 
-    private static <E> void printPathRecursion(BTNode<E> root, BTNode<E> target, List<BTNode<E>> list) {
-        if (root == null || isFound) return;
+    private static <E> void printPathRecursion(BTNode<E> root, BTNode<E> target, Stack<BTNode<E>> stack) {
+        if (root == null || getPath_isFound) return;
 
-        list.add(root);
+        stack.push(root);
 
         if (root == target) {
-            isFound = true;
-            Utils.println(list.toString());
+            getPath_isFound = true;
+            Utils.println(stack.toString());
             return;
         }
 
-        printPathRecursion(root.left, target, list);
-        printPathRecursion(root.right, target, list);
+        printPathRecursion(root.left, target, stack);
+        printPathRecursion(root.right, target, stack);
 
-        list.remove(list.size() - 1);
+        stack.pop();
     }
 
     // 翻转二叉树
@@ -92,22 +95,23 @@ public class TreeAlgorithm {
     }
 
     // 打印二叉树指定层的节点
-    public static <E> void printLevel1(BTNode<E> root, int level) {
-        printLevelRecursion(root, level, 1);
+    public static <E> void printLevel1(BTNode<E> root, int targetLevel) {
+        printLevelRecursion(root, targetLevel, 1);
     }
 
-    private static <E> void printLevelRecursion(BTNode<E> root, int level, int nextLevel) {
+    private static <E> void printLevelRecursion(BTNode<E> root, int targetLevel, int nextLevel) {
         if (root == null) {
             return;
         }
 
-        if (nextLevel == level) {
+        if (nextLevel == targetLevel) {
             Utils.println(root.data);
+            return;
         }
 
         ++nextLevel;
-        printLevelRecursion(root.left, level, nextLevel);
-        printLevelRecursion(root.right, level, nextLevel);
+        printLevelRecursion(root.left, targetLevel, nextLevel);
+        printLevelRecursion(root.right, targetLevel, nextLevel);
     }
 
     public static <E> void printLevel2(BTNode<E> root, int level) {
@@ -185,11 +189,11 @@ public class TreeAlgorithm {
     public static boolean verifyPostOrder(int[] a) {
         if (a == null || a.length == 1) return false;
 
-        return verifyPostOrderRecursion(a, 0, a.length - 1);
+        return rVerifyPostOrder(a, 0, a.length - 1);
     }
 
-    private static boolean verifyPostOrderRecursion(int[] a, int begin, int end) {
-        if (begin > end) {
+    private static boolean rVerifyPostOrder(int[] a, int begin, int end) {
+        if (begin >= end) {
             return true;
         }
 
@@ -197,29 +201,28 @@ public class TreeAlgorithm {
 
         // Find the left and right child position of root.
         int i;
-        for (i = 0; i < end - 1; ++i) {
+        for (i = 0; i < end; ++i) {
             if (a[i] > root) break;
         }
 
         int j = i;
-        for (; j < end - 1; ++j) {
+        for (; j < end; ++j) {
             if (a[j] < root) {
                 return false;
             }
         }
 
-        boolean left = verifyPostOrderRecursion(a, 0, i - 1);
-        boolean right = verifyPostOrderRecursion(a, i, end - 1);
-        return left && right;
+        return rVerifyPostOrder(a, begin, begin + i - 1)
+                && rVerifyPostOrder(a, begin + i, end - 1);
     }
 
     // 在二元树中找出和为某一值的所有路径
-    public static void findPath(BTNode<Integer> root, int path) {
+    public static void findAllPath(BTNode<Integer> root, int path) {
         Stack<Integer> stack = new Stack<>();
-        findPathRecursion(root, path, stack);
+        rFindAllPath(root, path, stack);
     }
 
-    private static void findPathRecursion(BTNode<Integer> root, int path, Stack<Integer> stack) {
+    private static void rFindAllPath(BTNode<Integer> root, int path, Stack<Integer> stack) {
         if (root == null) return;
 
         stack.push(root.data);
@@ -230,8 +233,8 @@ public class TreeAlgorithm {
                 Utils.println(stack.toString());
             }
         } else {
-            findPathRecursion(root.left, path, stack);
-            findPathRecursion(root.right, path, stack);
+            rFindAllPath(root.left, path, stack);
+            rFindAllPath(root.right, path, stack);
         }
 
         stack.pop();

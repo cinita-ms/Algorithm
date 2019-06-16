@@ -73,15 +73,15 @@ public class Sort {
     public static void mergeSort(int[] src) {
         if (src == null || src.length <= 1) return;
 
-        mergeRecursion(src, 0, src.length - 1);
+        rMerge(src, 0, src.length - 1);
     }
 
-    private static void mergeRecursion(int[] a, int begin, int end) {
+    private static void rMerge(int[] a, int begin, int end) {
         if (begin >= end) return;
 
-        int mid = begin + (end - begin) >>> 1;
-        mergeRecursion(a, begin, mid);
-        mergeRecursion(a, mid + 1, end);
+        int mid = ((end - begin) >> 1) + begin;
+        rMerge(a, begin, mid);
+        rMerge(a, mid + 1, end);
 
         merge(a, begin, mid, end);
     }
