@@ -1,4 +1,5 @@
 import base.BTNode;
+import base.Node;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,6 +118,38 @@ public class TestNote {
 
         return rIsPostOrder(a, start, start + i - 1)
                 && rIsPostOrder(a, start + i, end - 1);
+    }
+
+    // 合并两个有序链表
+    public static Node<Integer> mergeSortedList(Node<Integer> list1, Node<Integer> list2) {
+        if (list1 == null) {
+            return list2;
+        }
+        if (list2 == null) {
+            return list1;
+        }
+
+        Node<Integer> dump = new Node<>();
+        Node<Integer> tail = dump;
+        while (list1 != null && list2 != null) {
+            if (list1.data < list2.data) {
+                tail.next = list1;
+                tail = list1;
+                list1 = list1.next;
+            } else {
+                tail.next = list2;
+                tail = list2;
+                list2 = list2.next;
+            }
+        }
+
+        if (list1 == null) {
+            tail.next = list2;
+        } else {
+            tail.next = list1;
+        }
+
+        return dump.next;
     }
 
 }
