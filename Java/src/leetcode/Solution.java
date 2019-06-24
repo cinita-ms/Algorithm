@@ -1,7 +1,11 @@
 package leetcode;
 
+import base.Node;
+
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class Solution {
 
@@ -40,8 +44,47 @@ public class Solution {
         return result;
     }
 
+    // 2. 两数相加
+    public static Node<Integer> addTwoNumbers(Node<Integer> l1, Node<Integer> l2) {
+        Node<Integer> dummy = new Node<>();
+        Node<Integer> tail = dummy;
+        int carry = 0;
+        while (l1 != null || l2 != null) {
+            int l1Data = l1 == null ? 0 : l1.data;
+            int l2Data = l2 == null ? 0 : l2.data;
+            int sum = l1Data + l2Data + carry;
+            carry = sum / 10;
+            Node<Integer> next = new Node<>();
+            next.data = sum % 10;
+            tail.next = next;
+            tail = tail.next;
+            l1 = l1 == null ? null : l1.next;
+            l2 = l2 == null ? null : l2.next;
+        }
+
+        return dummy.next;
+    }
+
     // 3. 无重复字符的最长子串
     public static int lengthOfLongestSubstring(String s) {
-        return -1;
+        int maxLen = 0;
+        for (int i = 0, len = s.length(); i < len; ++i) {
+            char[] tempChars = s.substring(i).toCharArray();
+            Set<Character> set = new HashSet<>();
+            int j = 0;
+            for (int tLen = tempChars.length; j < tLen; ++j) {
+                if (set.contains(tempChars[j])) {
+                    break;
+                }
+
+                set.add(tempChars[j]);
+            }
+
+            if (j > maxLen) {
+                maxLen = j;
+            }
+        }
+
+        return maxLen;
     }
 }
