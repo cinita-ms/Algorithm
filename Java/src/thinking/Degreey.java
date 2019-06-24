@@ -1,6 +1,6 @@
 package thinking;
 
-import util.IntPair;
+import util.PairInt;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -9,22 +9,22 @@ import java.util.List;
 public class Degreey {
 
     // 不重复区间最多选择。
-    public static List<IntPair> f1(List<IntPair> list) {
+    public static List<PairInt> f1(List<PairInt> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
 
         list.sort(Comparator.comparingInt(o -> o.first));
 
-        List<IntPair> lastResults = new ArrayList<>();
+        List<PairInt> lastResults = new ArrayList<>();
 
         for (int i = 0; i < list.size(); ++i) {
 
-            List<IntPair> results = null;
-            IntPair last = null;
+            List<PairInt> results = null;
+            PairInt last = null;
             for (int j = i; j < list.size(); ++j) {
                 if (j == i) {
-                    IntPair head = list.get(j);
+                    PairInt head = list.get(j);
 
                     int k = j - 1;
                     if (k >= 0) {
@@ -41,7 +41,7 @@ public class Degreey {
                     continue;
                 }
 
-                IntPair cur = list.get(j);
+                PairInt cur = list.get(j);
                 if (cur.first < last.second) {
                     continue;
                 }

@@ -1,6 +1,6 @@
 package string;
 
-import com.sun.tools.javac.util.Pair;
+import util.PairInt;
 import util.Utils;
 
 import java.util.Arrays;
@@ -106,7 +106,7 @@ public class StringAlgorithm {
     }
 
     // 最长重复子串LRS(Largest Repeating Substring), 获取位置和长度。
-    public static Pair<Integer, Integer> largetRepeatingSubString(String src) {
+    public static PairInt largetRepeatingSubString(String src) {
         if (src == null || src.length() <= 1) return null;
 
         int len = src.length();
@@ -142,7 +142,7 @@ public class StringAlgorithm {
             ++i;
         }
 
-        return Pair.of(startPosition, maxLen);
+        return PairInt.of(startPosition, maxLen);
     }
 
     private static class Suffix {

@@ -2,12 +2,12 @@ package util;
 
 import java.util.Objects;
 
-public class IntPair {
+public class PairInt {
 
     public final int first;
     public final int second;
 
-    public IntPair(int first, int second) {
+    public PairInt(int first, int second) {
         this.first = first;
         this.second = second;
     }
@@ -29,7 +29,7 @@ public class IntPair {
         return Objects.hash(this.first, this, second);
     }
 
-    public static IntPair of(int first, int second) {
-        return new IntPair(first, second);
+    public static PairInt of(int first, int second) {
+        return new PairInt(first, second);
     }
 }
