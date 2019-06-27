@@ -87,4 +87,42 @@ public class Solution {
 
         return maxLen;
     }
+
+    // 5. 最长回文子串
+    public static String longestPalindrome(String s) {
+        if (s == null || s.length() < 2) {
+            return null;
+        }
+
+        int begin = 0, end = 0;
+        for (int i = 0, len = s.length(); i < len; ++i) {
+            int len1 = getAroundLen(s, i, i);
+            int len2 = getAroundLen(s, i, i + 1);
+            int finalLen = Math.max(len1, len2);
+            if (finalLen > (end - begin + 1)) {
+                begin = i - (finalLen - 1) / 2;
+                end = i + finalLen / 2;
+            }
+        }
+
+        if (end == begin) {
+            return null;
+        }
+
+        return s.substring(begin, end + 1);
+    }
+
+    private static int getAroundLen(String s, int left, int right) {
+        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            --left;
+            ++right;
+        }
+
+        return right - left + 1;
+    }
+
+    // 19. 删除链表的倒数第N个节点
+    public static <E> Node<E> removeNthFromEnd(Node<E> head, int n) {
+        return null;
+    }
 }
