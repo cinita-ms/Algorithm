@@ -1,11 +1,9 @@
 package leetcode;
 
 import base.Node;
+import base.NodeInt;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Solution {
 
@@ -29,7 +27,7 @@ public class Solution {
         return result;
     }
 
-    public static int[] twoSum1(int[] nums, int target) {
+    public static int[] twoSum_1(int[] nums, int target) {
         int[] result = new int[2];
         for (int i = 0, len = nums.length; i < len; ++i) {
             for (int j = i + 1; j < len; ++j) {
@@ -124,5 +122,82 @@ public class Solution {
     // 19. 删除链表的倒数第N个节点
     public static <E> Node<E> removeNthFromEnd(Node<E> head, int n) {
         return null;
+    }
+
+    // 20. 有效的括号
+    public boolean isValid(String s) {
+        if (s == null || s.length() < 2) {
+            return false;
+        }
+
+        Map<Character, Character> map = new HashMap<>();
+        map.put(']', '[');
+        map.put(')', '(');
+        map.put('}', '{');
+
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0, len = s.length(); i < len; ++i) {
+            char c = s.charAt(i);
+            if (map.containsKey(c)) {
+                if (stack.isEmpty()) {
+                    return false;
+                } else {
+                    char mapping = stack.pop();
+                    if (mapping != map.get(c)) {
+                        return false;
+                    }
+                }
+            } else {
+                stack.push(c);
+            }
+        }
+
+        return stack.isEmpty();
+    }
+
+    // 21. 合并两个有序链表
+    public static NodeInt mergeTwoLists(NodeInt l1, NodeInt l2) {
+        NodeInt dummy = new NodeInt();
+        NodeInt head = dummy;
+        while (l1 != null && l2 != null) {
+            if (l1.data < l2.data) {
+                head.next = l1;
+                l1 = l1.next;
+            } else {
+                head.next = l2;
+                l2 = l2.next;
+            }
+
+            head = head.next;
+        }
+
+        head.next = l1 == null ? l2 : l1;
+        return dummy.next;
+    }
+
+    // 53. 最大子序和
+    public int maxSubArray(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return Integer.MIN_VALUE;
+        }
+
+        int result = nums[0];
+        int sum = 0;
+        for (int num : nums) {
+            if (sum > 0) {
+                sum += num;
+            } else {
+                sum = num;
+            }
+
+            result = Math.max(result, sum);
+        }
+
+        return result;
+    }
+
+    // 70. 爬楼梯
+    public static int climbStairs(int n) {
+        return -1;
     }
 }
