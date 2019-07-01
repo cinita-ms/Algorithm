@@ -121,7 +121,19 @@ public class Solution {
 
     // 19. 删除链表的倒数第N个节点
     public static <E> Node<E> removeNthFromEnd(Node<E> head, int n) {
-        return null;
+        Node<E> first = head;
+        Node<E> second = head;
+        for (int i = 0; i < n; ++i) {
+            first = first.next;
+        }
+
+        while (first != null) {
+            first = first.next;
+            second = second.next;
+        }
+
+        second.next = second.next.next;
+        return head;
     }
 
     // 20. 有效的括号
