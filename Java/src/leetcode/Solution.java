@@ -321,4 +321,119 @@ public class Solution {
         // 排序和遍历
         return 0;
     }
+
+    // 141. 环形链表
+    public static <E> boolean hasCycle(Node<E> head) {
+        if (head == null || head.next == null) {
+            return false;
+        }
+
+        Node<E> slow = head;
+        Node<E> fast = head.next;
+        while (slow != null && fast != null && fast.next != null) {
+            if (slow == fast) {
+                return true;
+            }
+
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return false;
+    }
+
+    // 155. 最小栈
+    public static class MinStack {
+
+        private Stack<Integer> stack;
+        private Stack<Integer> min;
+
+        public MinStack() {
+            stack = new Stack<>();
+            min = new Stack<>();
+        }
+
+        public void push(int x) {
+            stack.push(x);
+            if (min.isEmpty() || x <= min.peek()) {
+                min.push(x);
+            }
+        }
+
+        public void pop() {
+            int top = stack.pop();
+            if (!min.isEmpty() && min.peek() == top) {
+                min.pop();
+            }
+        }
+
+        public int top() {
+            return stack.peek();
+        }
+
+        public int getMin() {
+            return min.peek();
+        }
+    }
+
+    // 160. 相交链表
+    public static <E> Node<E> getIntersectionNode(Node<E> headA, Node<E> headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
+
+        int sizeA = 0;
+        int sizeB = 0;
+        Node<E> tempA = headA;
+        Node<E> tempB = headB;
+
+        while (tempA != null) {
+            tempA = tempA.next;
+            ++sizeA;
+        }
+
+        while (tempB != null) {
+            tempB = tempB.next;
+        }
+
+        int dis = Math.abs(sizeA - sizeB);
+        tempA = sizeA > sizeB ? headA : headB; // longest
+        tempB = tempA == headA ? headB : headA;// shortest
+        while (dis != 0) {
+            tempA = tempA.next;
+            --dis;
+        }
+
+        while (tempA != null && tempB != null) {
+            if (tempA == tempB) {
+                return tempA;
+            }
+
+            tempA = tempA.next;
+            tempB = tempB.next;
+        }
+
+        return null;
+    }
+
+    // 169. 求众数
+    public static int majorityElement(int[] nums) {
+        if (nums == null || nums.length < 3) {
+            throw new IllegalArgumentException("Unsupported param.");
+        }
+
+        Integer maj = null;
+        int count = 0;
+        for (int num : nums) {
+            if (count == 0) {
+                maj = num;
+            }
+
+            count += (num == maj) ? 1 : -1;
+        }
+
+        return maj;
+    }
+
+
 }
