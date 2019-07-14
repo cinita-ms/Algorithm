@@ -435,5 +435,125 @@ public class Solution {
         return maj;
     }
 
+    // 198. 打家劫舍
+    public static int rob(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
 
+        if (nums.length == 1) {
+            return nums[0];
+        }
+
+        if (nums.length == 2) {
+            return Math.max(nums[0], nums[1]);
+        }
+
+        int[] dp = new int[nums.length];
+
+        for (int i = 2; i < nums.length; ++i) {
+            dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[1]);
+        }
+
+        return dp[dp.length - 1];
+    }
+
+    public static int rob_1(int[] nums) {
+        if (nums == null) {
+            return 0;
+        }
+
+        int prevMax = 0;
+        int currMax = 0;
+        for (int num : nums) {
+            int temp = currMax;
+            currMax = Math.max(prevMax + num, currMax);
+            prevMax = temp;
+        }
+
+        return currMax;
+    }
+
+    // 206. 反转链表
+    public static <E> Node<E> reverseList(Node<E> head) {
+        Node<E> prev = null;
+        Node<E> curr = head;
+        while (curr != null) {
+            Node<E> next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
+
+    // 226. 翻转二叉树
+    public <E> BTNode<E> invertTree(BTNode<E> root) {
+        if (root == null) {
+            return null;
+        }
+
+        BTNode<E> left = invertTree(root.left);
+        BTNode<E> right = invertTree(root.right);
+        root.right = left;
+        root.left = right;
+        return root;
+    }
+
+    // 234. 回文链表
+    public static <E> boolean isPalindrome(Node<E> head) {
+        // 允许改变链表结构
+        // Time : O(n), Space : O(1)
+
+        if (head == null) {
+            return false;
+        }
+
+        return false;
+    }
+
+    public static <E> boolean isPalindrome_1(Node<E> head) {
+        // 不允许改变链表结构
+        // Time : O(n), Space : O(n)
+
+        if (head == null) {
+            return false;
+        }
+
+        Stack<Node<E>> stack = new Stack<>();
+        Node<E> slow = head;
+        Node<E> fast = head.next;
+        stack.add(slow);
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            stack.add(slow);
+        }
+
+        if (fast == null) {
+            // 奇数
+            Node<E> mid = stack.pop();
+            Node<E> right = mid.next;
+            while (!stack.isEmpty() && right != null) {
+                if (stack.pop() != right) {
+                    return false;
+                }
+
+                right = right.next;
+            }
+        } else {
+            // 偶数
+            Node<E> right = stack.peek().next;
+            while (!stack.isEmpty() && right != null) {
+                if (stack.pop() != right) {
+                    return false;
+                }
+
+                right = right.next;
+            }
+        }
+
+        return true;
+    }
 }
