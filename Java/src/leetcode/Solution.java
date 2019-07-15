@@ -510,7 +510,32 @@ public class Solution {
             return false;
         }
 
-        return false;
+        Node<E> prev = null;
+        Node<E> curr = head;
+        Node<E> fast = head.next;
+        while (fast != null && fast.next != null) {
+            Node<E> next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+
+            fast = fast.next.next;
+        }
+
+        // 奇数, prev为中间位
+        // 偶数, prev左边最后一位
+        Node<E> left = prev == null ? null : fast == null ? prev.next : prev;
+        Node<E> right = curr;
+        while (left != null && right != null) {
+            if (!left.data.equals(right.data)) {
+                return false;
+            }
+
+            left = left.next;
+            right = right.next;
+        }
+
+        return true;
     }
 
     public static <E> boolean isPalindrome_1(Node<E> head) {
@@ -521,37 +546,30 @@ public class Solution {
             return false;
         }
 
-        Stack<Node<E>> stack = new Stack<>();
+        Stack<E> stack = new Stack<>();
         Node<E> slow = head;
         Node<E> fast = head.next;
-        stack.add(slow);
+        stack.add(slow.data);
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
-            stack.add(slow);
+            stack.add(slow.data);
         }
 
+        // 奇数, slow为中间位
+        // 偶数, slow为左边最后一位
         if (fast == null) {
-            // 奇数
-            Node<E> mid = stack.pop();
-            Node<E> right = mid.next;
-            while (!stack.isEmpty() && right != null) {
-                if (stack.pop() != right) {
-                    return false;
-                }
+            // 奇数, 移除栈顶的中间位
+            stack.pop();
+        }
 
-                right = right.next;
+        Node<E> right = slow.next;
+        while (!stack.isEmpty() && right != null) {
+            if (!stack.pop().equals(right.data)) {
+                return false;
             }
-        } else {
-            // 偶数
-            Node<E> right = stack.peek().next;
-            while (!stack.isEmpty() && right != null) {
-                if (stack.pop() != right) {
-                    return false;
-                }
 
-                right = right.next;
-            }
+            right = right.next;
         }
 
         return true;
