@@ -3,6 +3,7 @@ package leetcode;
 import base.BTNode;
 import base.Node;
 import base.NodeInt;
+import util.Utils;
 
 import java.util.*;
 
@@ -574,4 +575,36 @@ public class Solution {
 
         return true;
     }
+
+    // 283. 移动零
+    public static void moveZeroes(int[] nums) {
+        if (nums == null || nums.length == 0) return;
+
+        for (int cur = 0, firstZero = 0; cur < nums.length; ++cur) {
+            if (nums[cur] != 0) {
+                Utils.swap(nums, firstZero++, cur);
+            }
+        }
+    }
+
+    // 437. 路径总和 III
+    public static int pathSum(BTNode<Integer> root, int sum) {
+        if (root == null) {
+            return 0;
+        }
+
+        return pathSumFromRoot(root, sum) + pathSum(root.left, sum) + pathSum(root.right, sum);
+    }
+
+    private static int pathSumFromRoot(BTNode<Integer> root, int sum) {
+        if (root == null) {
+            return 0;
+        }
+
+        sum -= root.data;
+        return (sum == 0 ? 1 : 0) + pathSumFromRoot(root.left, sum) + pathSumFromRoot(root.right, sum);
+    }
+
+    // 438. 找到字符串中所有字母异位词
+
 }
