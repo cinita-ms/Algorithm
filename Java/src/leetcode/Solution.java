@@ -1,6 +1,7 @@
 package leetcode;
 
 import base.BTNode;
+import base.BTNoteInt;
 import base.Node;
 import base.NodeInt;
 import util.Utils;
@@ -606,5 +607,155 @@ public class Solution {
     }
 
     // 438. 找到字符串中所有字母异位词
+    public static List<Integer> findAnagrams(String s, String p) {
+        List<Integer> result = new ArrayList<>();
+        if (s == null || s.length() == 0 || p == null || p.length() == 0 || p.length() > s.length()) {
+            return result;
+        }
 
+        String sortedP = getSortedString(p);
+
+        for (int i = 0; i < s.length() - p.length(); ++i) {
+            String sub = s.substring(i, i + p.length());
+            if(sortedP.equals(getSortedString(sub))){
+                int j = 0;
+                for (; j < sub.length(); j++) {
+                    if (sub.charAt(j) == p.charAt(j)) break;
+                }
+
+                if (j == sub.length()) {
+                    result.add(i);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    private static String getSortedString(String s) {
+        if (s == null) {
+            return null;
+        }
+
+        char[] sorted = s.toCharArray();
+        Arrays.sort(sorted);
+        return new String(sorted);
+    }
+
+    // 448. 找到所有数组中消失的数字
+    public static List<Integer> findDisappearedNumbers(int[] nums) {
+        List<Integer> list = new ArrayList<>();
+        if (nums == null || nums.length == 0) {
+            return list;
+        }
+
+        for (int i = 0; i < nums.length; ++i) {
+            while (nums[i] != i + 1) {
+                Utils.swap(nums, i, nums[i] - 1);
+            }
+        }
+
+        for (int i = 0; i < nums.length; ++i) {
+            if (nums[i] != i + 1) {
+                list.add(i + 1);
+            }
+        }
+
+        return list;
+    }
+
+    // 538. 把二叉搜索树转换为累加树
+    private static int sum = 0;
+
+    public static BTNoteInt convertBST(BTNoteInt root) {
+        sum = 0;
+        backMidOrder(root);
+        return root;
+    }
+
+    private static void backMidOrder(BTNoteInt root) {
+        if (root == null) return;
+
+        backMidOrder(root.right);
+        sum += root.data;
+        root.data = sum;
+        backMidOrder(root.left);
+    }
+
+    // 543. 二叉树的直径
+    private static int maxDis = 0;
+
+    public static <E> int diameterOfBinaryTree(BTNode<E> root) {
+        maxDis = 0;
+        depth(root);
+        return maxDis;
+    }
+
+    private static <E> int depth(BTNode<E> root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int left = depth(root.left);
+        int right = depth(root.right);
+        maxDis = Math.max(maxDis, left + right);
+        return Math.max(left, right) + 1;
+    }
+
+    // 581. 最短无序连续子数组
+    public static int findUnsortedSubarray(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+
+        int left = 0;
+        int right = nums.length - 1;
+        for (int i = 0, j = nums.length - 1; i < nums.length; ++i, j -= i) {
+            // Is min, start -> end.
+            int m = i + 1;
+            while (m < nums.length) {
+                if (nums[i] > nums[m]) {
+                    left = i;
+                    break;
+                }
+
+                ++m;
+            }
+
+            // Is max, end -> start.
+            int n = j - 1;
+            while (n >= 0) {
+                if (nums[j] < nums[n]) {
+                    right = j;
+                    break;
+                }
+
+                --n;
+            }
+        }
+
+        return right - left + 1;
+    }
+
+    // 617. 合并二叉树
+    public static BTNoteInt mergeTrees(BTNoteInt t1, BTNoteInt t2) {
+        if (t1 == null && t2 == null) {
+            return null;
+        }
+
+        if (t1 == null) {
+            return t2;
+        }
+
+        if (t2 == null) {
+            return t1;
+        }
+
+        BTNoteInt result = new BTNoteInt();
+        result.data = t1.data + t2.data;
+        result.left = mergeTrees(t1.left, t2.left);
+        result.right = mergeTrees(t1.right, t2.right);
+        return result;
+    }
 }
