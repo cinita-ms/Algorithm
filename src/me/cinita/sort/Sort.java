@@ -2,6 +2,8 @@ package me.cinita.sort;
 
 import me.cinita.util.Utils;
 
+import java.util.Arrays;
+
 public class Sort {
 
     // |------------------------------------------------------------------------|
@@ -112,7 +114,7 @@ public class Sort {
             a[begin++] = temp[k++];
         }
     }
-    // endregion Merge sort.
+    // endregion
 
     // region Quick sort.
     public static void quickSort(int[] src) {
@@ -142,5 +144,29 @@ public class Sort {
         Utils.swap(a, end, p);
         return p;
     }
-    // endregion Quick sort.
+    // endregion
+
+    // Age sort, O(n).
+    public static void ageSort(int[] ages) {
+        if (ages == null || ages.length == 0) return;
+
+        final int maxAge = 99;
+        int[] agePool = new int[maxAge + 1];
+        Arrays.fill(agePool, 0);
+
+        for (int age : ages) {
+            if (age > maxAge || age < 0) {
+                throw new IllegalArgumentException("Age out of range");
+            }
+
+            ++agePool[age];
+        }
+
+        int index = 0;
+        for (int i = 0; i < agePool.length; ++i) {
+            for (int j = 0; j < agePool[i]; ++j) {
+                ages[index++] = i;
+            }
+        }
+    }
 }
