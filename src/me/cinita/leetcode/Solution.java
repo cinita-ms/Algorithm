@@ -89,6 +89,57 @@ public class Solution {
         return maxLen;
     }
 
+    // 4. 寻找两个有序数组的中位数
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        if (Utils.isEmpty(nums1) && Utils.isEmpty(nums2)) {
+            throw new IllegalArgumentException();
+        }
+
+        int l1 = Utils.isEmpty(nums1) ? 0 : nums1.length;
+        int l2 = Utils.isEmpty(nums2) ? 0 : nums2.length;
+        if (l1 == 0) {
+            if (l2 % 2 == 0) {
+                return (nums2[(l2 >> 1) - 1] + nums2[l2 >> 1]) / 2.0d;
+            } else {
+                return nums2[l2 >> 1];
+            }
+        }
+
+        if (l2 == 0) {
+            if (l1 % 2 == 0) {
+                return (nums1[(l1 >> 1) - 1] + nums1[l1 >> 1]) / 2.0d;
+            } else {
+                return nums1[l1 >> 1];
+            }
+        }
+
+        int l = l1 + l2;
+        int[] result = new int[l];
+        int i = 0, j = 0, k = 0;
+        while (i < l1 && j < l2) {
+            result[k++] = nums1[i] < nums2[j] ? nums1[i++] : nums2[j++];
+        }
+
+        int p = i;
+        int q = l1;
+        int[] rest = nums1;
+        if (p == l1) {
+            p = j;
+            q = l2;
+            rest = nums2;
+        }
+
+        for (; p < q; ++p) {
+            result[k++] = rest[p++];
+        }
+
+        if (l % 2 == 0) {
+            return (result[(l >> 1) - 1] + result[l >> 1]) / 2.0d;
+        } else {
+            return result[l >> 1];
+        }
+    }
+
     // 5. 最长回文子串
     public static String longestPalindrome(String s) {
         if (s == null || s.length() < 2) {
@@ -617,7 +668,7 @@ public class Solution {
 
         for (int i = 0; i < s.length() - p.length(); ++i) {
             String sub = s.substring(i, i + p.length());
-            if(sortedP.equals(getSortedString(sub))){
+            if (sortedP.equals(getSortedString(sub))) {
                 int j = 0;
                 for (; j < sub.length(); j++) {
                     if (sub.charAt(j) == p.charAt(j)) break;

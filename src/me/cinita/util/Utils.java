@@ -2,6 +2,10 @@ package me.cinita.util;
 
 public class Utils {
 
+    public static boolean isEmpty(int[] src) {
+        return src == null || src.length == 0;
+    }
+
     public static void swap(int[] src, int from, int to) {
         if (src == null || src.length - 1 < from || src.length - 1 < to || from == to) return;
 
