@@ -17,11 +17,11 @@ public class TreeAlgorithm {
     public static <E> Stack<BTNode<E>> getPath(BTNode<E> root, BTNode<E> target) {
         Stack<BTNode<E>> stack = new Stack<>();
         getPath_isFound = false;
-        printPathRecursion(root, target, stack);
+        rPrintPath(root, target, stack);
         return stack;
     }
 
-    private static <E> void printPathRecursion(BTNode<E> root, BTNode<E> target, Stack<BTNode<E>> stack) {
+    private static <E> void rPrintPath(BTNode<E> root, BTNode<E> target, Stack<BTNode<E>> stack) {
         if (root == null || getPath_isFound) return;
 
         stack.push(root);
@@ -32,8 +32,8 @@ public class TreeAlgorithm {
             return;
         }
 
-        printPathRecursion(root.left, target, stack);
-        printPathRecursion(root.right, target, stack);
+        rPrintPath(root.left, target, stack);
+        rPrintPath(root.right, target, stack);
 
         stack.pop();
     }

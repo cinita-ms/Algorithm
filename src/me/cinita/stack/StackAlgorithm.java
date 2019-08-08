@@ -12,16 +12,14 @@ public class StackAlgorithm {
             return false;
         }
 
-        Map<Character, Character> mappings = new HashMap<>(3);
+        Map<Character, Character> mappings = new HashMap<>();
         mappings.put(')', '(');
         mappings.put(']', '[');
         mappings.put('}', '{');
 
         Stack<Character> stack = new Stack<>();
-
         for (int i = 0; i < s.length(); ++i) {
             char c = s.charAt(i);
-
             if (mappings.containsKey(c)) {
                 if (stack.isEmpty()) {
                     return false;

@@ -178,6 +178,7 @@ public class StringAlgorithm {
                 chars[new_p--] = 'b';
                 chars[new_p--] = '2';
                 chars[new_p--] = '%';
+                old_p--;
             }
         }
 

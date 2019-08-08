@@ -120,15 +120,15 @@ public class Sort {
     public static void quickSort(int[] src) {
         if (src == null || src.length <= 1) return;
 
-        partitionRecursion(src, 0, src.length - 1);
+        rPartition(src, 0, src.length - 1);
     }
 
-    private static void partitionRecursion(int[] a, int begin, int end) {
+    private static void rPartition(int[] a, int begin, int end) {
         if (begin >= end) return;
 
         int pivot = partition(a, begin, end);
-        partitionRecursion(a, begin, pivot - 1);
-        partitionRecursion(a, pivot + 1, end);
+        rPartition(a, begin, pivot - 1);
+        rPartition(a, pivot + 1, end);
     }
 
     private static int partition(int[] a, int begin, int end) {
