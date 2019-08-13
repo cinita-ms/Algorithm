@@ -1,7 +1,7 @@
 package me.cinita.leetcode;
 
 import me.cinita.base.BTNode;
-import me.cinita.base.BTNoteInt;
+import me.cinita.base.BTNodeInt;
 import me.cinita.util.Utils;
 
 import java.util.*;
@@ -240,7 +240,7 @@ public class EasyAlgorithm {
     // 验证二叉搜索树
     private static int lastValue = Integer.MIN_VALUE;
 
-    public boolean isValidBST(BTNoteInt root) {
+    public boolean isValidBST(BTNodeInt root) {
         if (root == null) {
             return true;
         }
@@ -256,7 +256,7 @@ public class EasyAlgorithm {
     }
 
     // 将有序数组转换为二叉搜索树
-    public static BTNoteInt sortedArrayToBST(int[] nums) {
+    public static BTNodeInt sortedArrayToBST(int[] nums) {
         if (Utils.isEmpty(nums)) {
             return null;
         }
@@ -264,9 +264,9 @@ public class EasyAlgorithm {
         return rSortedArrayToBST(nums, 0, nums.length - 1);
     }
 
-    private static BTNoteInt rSortedArrayToBST(int[] nums, int start, int end) {
+    private static BTNodeInt rSortedArrayToBST(int[] nums, int start, int end) {
         int mid = ((end - start) >> 1) + start;
-        BTNoteInt root = new BTNoteInt();
+        BTNodeInt root = new BTNodeInt();
         root.data = nums[mid];
         if (mid > start) {
             root.left = rSortedArrayToBST(nums, start, mid - 1);

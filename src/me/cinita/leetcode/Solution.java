@@ -1,7 +1,7 @@
 package me.cinita.leetcode;
 
 import me.cinita.base.BTNode;
-import me.cinita.base.BTNoteInt;
+import me.cinita.base.BTNodeInt;
 import me.cinita.base.Node;
 import me.cinita.base.NodeInt;
 import me.cinita.util.Utils;
@@ -718,13 +718,13 @@ public class Solution {
     // 538. 把二叉搜索树转换为累加树
     private static int sum = 0;
 
-    public static BTNoteInt convertBST(BTNoteInt root) {
+    public static BTNodeInt convertBST(BTNodeInt root) {
         sum = 0;
         backMidOrder(root);
         return root;
     }
 
-    private static void backMidOrder(BTNoteInt root) {
+    private static void backMidOrder(BTNodeInt root) {
         if (root == null) return;
 
         backMidOrder(root.right);
@@ -790,7 +790,7 @@ public class Solution {
     }
 
     // 617. 合并二叉树
-    public static BTNoteInt mergeTrees(BTNoteInt t1, BTNoteInt t2) {
+    public static BTNodeInt mergeTrees(BTNodeInt t1, BTNodeInt t2) {
         if (t1 == null && t2 == null) {
             return null;
         }
@@ -803,7 +803,7 @@ public class Solution {
             return t1;
         }
 
-        BTNoteInt result = new BTNoteInt();
+        BTNodeInt result = new BTNodeInt();
         result.data = t1.data + t2.data;
         result.left = mergeTrees(t1.left, t2.left);
         result.right = mergeTrees(t1.right, t2.right);
