@@ -1,6 +1,7 @@
 package me.cinita.leetcode;
 
 import me.cinita.base.BTNode;
+import me.cinita.base.BTNoteInt;
 import me.cinita.util.Utils;
 
 import java.util.*;
@@ -234,6 +235,76 @@ public class EasyAlgorithm {
         }
 
         return result;
+    }
+
+    // 验证二叉搜索树
+    private static int lastValue = Integer.MIN_VALUE;
+
+    public boolean isValidBST(BTNoteInt root) {
+        if (root == null) {
+            return true;
+        }
+
+        if (isValidBST(root.left)) {
+            if (root.data > lastValue) {
+                lastValue = root.data;
+                return isValidBST(root.right);
+            }
+        }
+
+        return false;
+    }
+
+    // 将有序数组转换为二叉搜索树
+    public static BTNoteInt sortedArrayToBST(int[] nums) {
+        if (Utils.isEmpty(nums)) {
+            return null;
+        }
+
+        return rSortedArrayToBST(nums, 0, nums.length - 1);
+    }
+
+    private static BTNoteInt rSortedArrayToBST(int[] nums, int start, int end) {
+        int mid = ((end - start) >> 1) + start;
+        BTNoteInt root = new BTNoteInt();
+        root.data = nums[mid];
+        if (mid > start) {
+            root.left = rSortedArrayToBST(nums, start, mid - 1);
+        }
+
+        if (mid < end) {
+            root.right = rSortedArrayToBST(nums, mid + 1, end);
+        }
+
+        return root;
+    }
+
+    // 第一个错误的版本
+    public static int firstBadVersion(int n) {
+        if (n <= 0) {
+            return -1;
+        }
+
+        int start = 1;
+        int end = n;
+        while (start <= end) {
+            if (start == end) {
+                return isBadVersion(start) ? start : -1;
+            }
+
+            int mid = ((end - start) >> 1) + start;
+            if (isBadVersion(mid)) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+
+        return -1;
+    }
+
+    private static boolean isBadVersion(int version) {
+        return false;
     }
 
 }

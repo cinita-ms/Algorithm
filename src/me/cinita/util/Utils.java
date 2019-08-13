@@ -6,6 +6,14 @@ public class Utils {
         return src == null || src.length == 0;
     }
 
+    public static boolean isEmpty(Object[] src) {
+        return src == null || src.length == 0;
+    }
+
+    public static boolean isEmpty(String src) {
+        return src == null || src.isEmpty();
+    }
+
     public static void swap(int[] src, int from, int to) {
         if (src == null || src.length - 1 < from || src.length - 1 < to || from == to) return;
 
