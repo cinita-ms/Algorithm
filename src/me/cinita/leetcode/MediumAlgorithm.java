@@ -42,6 +42,8 @@ public class MediumAlgorithm {
         return builder.toString();
     }
 
+    // 奇偶链表
+
     // 从前序与中序遍历序列构造二叉树
     public static BTNodeInt buildTree(int[] preorder, int[] inorder) {
         Map<Integer, Integer> map = new HashMap<>();
@@ -101,19 +103,19 @@ public class MediumAlgorithm {
     public int kthSmallest(BTNodeInt root, int k) {
         count = k;
         result = null;
-        dfs_1(root);
+        rKthSmallest(root);
         return result;
     }
 
-    private static void dfs_1(BTNodeInt root) {
+    private static void rKthSmallest(BTNodeInt root) {
         if (root == null || result != null) return;
 
-        dfs_1(root.left);
+        rKthSmallest(root.left);
         if ((--count) == 0) {
             result = root.data;
         }
 
-        dfs_1(root.right);
+        rKthSmallest(root.right);
     }
 
     // 岛屿数量
@@ -125,7 +127,7 @@ public class MediumAlgorithm {
             for (int j = 0; j < cLen; ++j) {
                 if (grid[i][j] == '1') {
                     ++islandCount;
-                    dfs_2(grid, i, j);
+                    rNumIslands(grid, i, j);
                 }
             }
         }
@@ -133,16 +135,16 @@ public class MediumAlgorithm {
         return islandCount;
     }
 
-    private static void dfs_2(char[][] grid, int i, int j) {
+    private static void rNumIslands(char[][] grid, int i, int j) {
         int rLen = grid.length;
         int cLen = grid[0].length;
         if (i < 0 || j < 0 || i >= rLen || j >= cLen || grid[i][j] == '0') return;
 
         grid[i][j] = '0';
-        dfs_2(grid, i - 1, j);
-        dfs_2(grid, i + 1, j);
-        dfs_2(grid, i, j - 1);
-        dfs_2(grid, i, j + 1);
+        rNumIslands(grid, i - 1, j);
+        rNumIslands(grid, i + 1, j);
+        rNumIslands(grid, i, j - 1);
+        rNumIslands(grid, i, j + 1);
     }
 
     // 电话号码的字母组合
@@ -150,11 +152,11 @@ public class MediumAlgorithm {
         List<String> result = new ArrayList<>();
         Map<String, String> map = new HashMap<>();
         // Init map.
-        f1(result, map, "", digits);
+        rLetterCombinations(result, map, "", digits);
         return result;
     }
 
-    private static void f1(List<String> result, Map<String, String> map, String cur, String digits) {
+    private static void rLetterCombinations(List<String> result, Map<String, String> map, String cur, String digits) {
         if (digits.length() == 0) {
             result.add(cur);
         } else {
@@ -162,7 +164,7 @@ public class MediumAlgorithm {
             String chars = map.get(number);
             for (int i = 0; i < chars.length(); ++i) {
                 String toAdd = chars.substring(i, i + 1);
-                f1(result, map, cur + toAdd, digits.substring(1));
+                rLetterCombinations(result, map, cur + toAdd, digits.substring(1));
             }
         }
     }
@@ -271,7 +273,7 @@ public class MediumAlgorithm {
             return true;
         }
 
-        int toJumpLen = Math.min(nums.length - 1, nums[position]);
+        int toJumpLen = Math.min(nums.length - 1, position + nums[position]);
         for (int nextPosition = toJumpLen; nextPosition > position; --nextPosition) {
             if (r1(nums, nextPosition)) {
                 return true;
@@ -330,6 +332,7 @@ public class MediumAlgorithm {
 
     public static int coinChange_1(int[] coins, int amount) {
         int[] dp = new int[amount + 1];
+        Arrays.fill(dp, amount + 1);
         dp[0] = 0;
         for (int i = 0; i <= amount; ++i) {
             for (int coin : coins) {

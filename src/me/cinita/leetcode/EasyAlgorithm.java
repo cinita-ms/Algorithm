@@ -2,6 +2,8 @@ package me.cinita.leetcode;
 
 import me.cinita.base.BTNode;
 import me.cinita.base.BTNodeInt;
+import me.cinita.base.Node;
+import me.cinita.base.NodeInt;
 import me.cinita.util.Utils;
 
 import java.util.*;
@@ -182,6 +184,113 @@ public class EasyAlgorithm {
         return new int[]{-1, -1};
     }
 
+    // 删除链表的倒数第N个节点
+    public static <E> Node<E> removeNthFromEnd(Node<E> head, int n) {
+        Node<E> fast = head;
+        Node<E> slow = head;
+        for (int index = 1; index <= n; ++index) {
+            fast = fast.next;
+        }
+
+        while (fast != null && fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+
+        slow.next = slow.next.next;
+        return head;
+    }
+
+    // 反转链表
+    public static <E> Node<E> reverseList(Node<E> head) {
+        Node<E> prev = null;
+        Node<E> cur = head;
+        while (cur != null) {
+            Node<E> next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+
+        return prev;
+    }
+
+    // 合并两个有序链表
+    public static NodeInt mergeTwoLists(NodeInt l1, NodeInt l2) {
+        if (l1 == null) {
+            return l2;
+        }
+
+        if (l2 == null) {
+            return l1;
+        }
+
+        NodeInt dump = new NodeInt();
+        while (l1 != null && l2 != null) {
+            if (l1.data < l2.data) {
+                dump.next = l1;
+                l1 = l1.next;
+            } else {
+                dump.next = l2;
+                l2 = l2.next;
+            }
+
+            dump = dump.next;
+        }
+
+        if (l1 == null) {
+            dump.next = l2;
+        } else {
+            dump.next = l1;
+        }
+
+        return dump.next;
+    }
+
+    //  二叉树的最大深度
+    public static <E> int maxDepth(BTNode<E> root) {
+        if (root == null) {
+            return 0;
+        }
+
+        return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+    }
+
+    // 验证二叉搜索树
+    private static int lastValue = Integer.MIN_VALUE;
+
+    public boolean isValidBST(BTNodeInt root) {
+        if (root == null) {
+            return true;
+        }
+
+        if (isValidBST(root.left)) {
+            if (root.data > lastValue) {
+                lastValue = root.data;
+                return isValidBST(root.right);
+            }
+        }
+
+        return false;
+    }
+
+    // 对称二叉树
+    public static <E> boolean isSymmetric(BTNode<E> root) {
+        return rIsSymmetric(root, root);
+    }
+
+    private static <E> boolean rIsSymmetric(BTNode<E> root1, BTNode<E> root2) {
+        if (root1 == null && root2 == null) {
+            return true;
+        }
+
+        if (root1 == null || root2 == null) {
+            return false;
+        }
+
+        return root1.data == root2.data && rIsSymmetric(root1.left, root2.right) && rIsSymmetric(root1.right, root2.left);
+    }
+
     // 二叉树的层次遍历
     public static <E> List<List<E>> levelOrder(BTNode<E> root) {
         List<List<E>> result = new ArrayList<>();
@@ -218,7 +327,7 @@ public class EasyAlgorithm {
             List<E> r = new ArrayList<>();
             result.add(r);
 
-            int levelLength = queue.size();
+            int levelLength = queue.size(); // Can't use queue's size to iterate.
             for (int i = 0; i < levelLength; ++i) {
                 BTNode<E> node = queue.poll();
                 if (node == null) continue;
@@ -237,24 +346,6 @@ public class EasyAlgorithm {
         return result;
     }
 
-    // 验证二叉搜索树
-    private static int lastValue = Integer.MIN_VALUE;
-
-    public boolean isValidBST(BTNodeInt root) {
-        if (root == null) {
-            return true;
-        }
-
-        if (isValidBST(root.left)) {
-            if (root.data > lastValue) {
-                lastValue = root.data;
-                return isValidBST(root.right);
-            }
-        }
-
-        return false;
-    }
-
     // 将有序数组转换为二叉搜索树
     public static BTNodeInt sortedArrayToBST(int[] nums) {
         if (Utils.isEmpty(nums)) {
@@ -266,6 +357,10 @@ public class EasyAlgorithm {
 
     private static BTNodeInt rSortedArrayToBST(int[] nums, int start, int end) {
         int mid = ((end - start) >> 1) + start;
+        if (mid < start || mid > end) {
+            return null;
+        }
+
         BTNodeInt root = new BTNodeInt();
         root.data = nums[mid];
         if (mid > start) {
@@ -307,4 +402,44 @@ public class EasyAlgorithm {
         return false;
     }
 
+    // 最大子序和
+    public static int maxSubArray(int[] nums) {
+        int result = nums[0];
+        int sum = 0;
+        for (int num : nums) {
+            if (sum > 0) {
+                sum += num;
+            } else {
+                sum = num;
+            }
+
+            result = Math.max(result, sum);
+        }
+
+        return result;
+    }
+
+    //  打家劫舍
+    public static int rob(int[] nums) {
+        int[] dp = new int[nums.length];
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[0], nums[1]);
+        for (int i = 2; i < nums.length; ++i) {
+            dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
+        }
+
+        return dp[nums.length - 1];
+    }
+
+    public static int rob_1(int[] nums) {
+        int prev = 0;
+        int cur = 0;
+        for (int num : nums) {
+            int temp = cur;
+            cur = Math.max(cur, prev + num);
+            prev = temp;
+        }
+
+        return cur;
+    }
 }
