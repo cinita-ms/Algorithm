@@ -3,10 +3,7 @@ package me.cinita.leetcode;
 import me.cinita.base.BTNodeInt;
 import me.cinita.util.Utils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MediumAlgorithm {
 
@@ -201,5 +198,147 @@ public class MediumAlgorithm {
 
     private static String removeAt(String s, int i) {
         return s.substring(0, i) + s.substring(i + 1);
+    }
+
+    // 子集
+    public static List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        result.add(new ArrayList<>());
+        f3(nums, result, 0);
+        return result;
+    }
+
+    private static void f3(int[] nums, List<List<Integer>> result, int position) {
+        if (position >= nums.length) return;
+
+        final int size = result.size();
+        for (int i = 0; i < size; ++i) {
+            List<Integer> newSub = new ArrayList<>(result.get(i));
+            newSub.add(nums[position]);
+            result.add(newSub);
+        }
+
+        f3(nums, result, position + 1);
+    }
+
+    public static List<List<Integer>> subsets_1(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        for (int i = 0; i < (1 << nums.length); ++i) {
+            List<Integer> sub = new ArrayList<>();
+            for (int j = 0; j < nums.length; ++j) {
+                if (((i >> j) & 1) == 1) {
+                    sub.add(nums[j]);
+                }
+            }
+
+            result.add(sub);
+        }
+
+        return result;
+    }
+
+    // 前 K 个高频元素
+    public static List<Integer> topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+
+        PriorityQueue<Integer> heap = new PriorityQueue<>(Comparator.comparingInt(map::get));
+        for (int num : map.keySet()) {
+            heap.add(num);
+            if (heap.size() > k) {
+                heap.poll();
+            }
+        }
+
+        List<Integer> result = new ArrayList<>();
+        while (!heap.isEmpty()) {
+            result.add(heap.poll());
+        }
+
+        Collections.reverse(result);
+        return result;
+    }
+
+    // 跳跃游戏
+    public static boolean canJump(int[] nums) {
+        return r1(nums, 0);
+    }
+
+    private static boolean r1(int[] nums, int position) {
+        if (position == nums.length - 1) {
+            return true;
+        }
+
+        int toJumpLen = Math.min(nums.length - 1, nums[position]);
+        for (int nextPosition = toJumpLen; nextPosition > position; --nextPosition) {
+            if (r1(nums, nextPosition)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // 不同路径
+    public static int uniquePaths(int m, int n) {
+        if (m == 1 || n == 1) {
+            return 1;
+        }
+
+        return uniquePaths(m - 1, n) + uniquePaths(m, n - 1);
+    }
+
+    public static int uniquePaths_1(int m, int n) {
+        int[][] table = new int[m][n];
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (i == 0 || j == 0) {
+                    table[i][j] = 1;
+                } else {
+                    table[i][j] = table[i - 1][j] + table[i][j - 1];
+                }
+            }
+        }
+
+        return table[m - 1][n - 1];
+    }
+
+    // 零钱兑换
+    public static int coinChange(int[] coins, int amount) {
+        if (amount == 0) {
+            return 0;
+        }
+
+        Integer result = null;
+        for (int coin : coins) {
+            if (amount - coin < 0) continue;
+
+            int subResult = coinChange(coins, amount - coin);
+            if (subResult == -1) continue;
+
+            if (result == null) {
+                result = subResult + 1;
+            } else {
+                result = Math.min(result, subResult + 1);
+            }
+        }
+
+        return result == null ? -1 : result;
+    }
+
+    public static int coinChange_1(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        dp[0] = 0;
+        for (int i = 0; i <= amount; ++i) {
+            for (int coin : coins) {
+                if (amount >= coin) {
+                    dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+                }
+            }
+        }
+
+        return dp[amount] > amount ? -1 : dp[amount];
     }
 }

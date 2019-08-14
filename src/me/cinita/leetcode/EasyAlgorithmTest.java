@@ -3,6 +3,7 @@ package me.cinita.leetcode;
 import me.cinita.util.Utils;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class EasyAlgorithmTest {
 
@@ -19,5 +20,9 @@ public class EasyAlgorithmTest {
         int[] a3 = new int[]{1,2,0,3};
         EasyAlgorithm.moveZeroes(a3);
         Utils.println(Arrays.toString(a3));
+
+        int[] a4 = new int[]{1,2,3};
+        List<List<Integer>> result = MediumAlgorithm.subsets_1(a4);
+        Utils.print(result.toString());
     }
 }
