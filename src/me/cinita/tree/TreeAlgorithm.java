@@ -86,7 +86,6 @@ public class TreeAlgorithm {
         }
 
         int rest = sum - root.data;
-
         if (root.left == null && root.right == null) {
             return rest == 0;
         }
@@ -170,7 +169,7 @@ public class TreeAlgorithm {
             return -1;
         }
 
-        maxDis = Integer.MIN_VALUE;
+        maxDis = 0;
         maxDisRecursion(root);
         return maxDis;
     }

@@ -106,6 +106,7 @@ public class EasyAlgorithm {
         if (Utils.isEmpty(nums1) || Utils.isEmpty(nums2)) {
             return new int[0];
         }
+
         Map<Integer, Integer> map = new HashMap<>();
         for (int num : nums1) {
             if (map.containsKey(num)) {
@@ -306,13 +307,8 @@ public class EasyAlgorithm {
         }
 
         result.get(level).add(node.data);
-        if (node.left != null) {
-            postOrder(node.left, level + 1, result);
-        }
-
-        if (node.right != null) {
-            postOrder(node.right, level + 1, result);
-        }
+        postOrder(node.left, level + 1, result);
+        postOrder(node.right, level + 1, result);
     }
 
     public static <E> List<List<E>> levelOrder_1(BTNode<E> root) {
@@ -357,10 +353,6 @@ public class EasyAlgorithm {
 
     private static BTNodeInt rSortedArrayToBST(int[] nums, int start, int end) {
         int mid = ((end - start) >> 1) + start;
-        if (mid < start || mid > end) {
-            return null;
-        }
-
         BTNodeInt root = new BTNodeInt();
         root.data = nums[mid];
         if (mid > start) {
