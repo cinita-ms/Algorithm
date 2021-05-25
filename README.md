@@ -1,2 +1,5 @@
 # Algorithm
-The algorithm implemented by Java language.
+The algorithm implementation for multi computer language.
+1. Java
+2. C
+3. C++
