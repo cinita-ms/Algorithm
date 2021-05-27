@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9AF98E47265DE826003AA1F2 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 9AF98E46265DE826003AA1F2 /* main.c */; };
-		9AF98E52265DEEC8003AA1F2 /* array_list.c in Sources */ = {isa = PBXBuildFile; fileRef = 9AF98E51265DEEC8003AA1F2 /* array_list.c */; };
+		9AF98E55265F58CD003AA1F2 /* array_list.c in Sources */ = {isa = PBXBuildFile; fileRef = 9AF98E54265F58CD003AA1F2 /* array_list.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,8 +26,8 @@
 /* Begin PBXFileReference section */
 		9AF98E43265DE826003AA1F2 /* AlgorithmC */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AlgorithmC; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AF98E46265DE826003AA1F2 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		9AF98E50265DEEC8003AA1F2 /* array_list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = array_list.h; sourceTree = "<group>"; };
-		9AF98E51265DEEC8003AA1F2 /* array_list.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = array_list.c; sourceTree = "<group>"; };
+		9AF98E53265F58CD003AA1F2 /* array_list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = array_list.h; sourceTree = "<group>"; };
+		9AF98E54265F58CD003AA1F2 /* array_list.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = array_list.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,8 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				9AF98E46265DE826003AA1F2 /* main.c */,
-				9AF98E50265DEEC8003AA1F2 /* array_list.h */,
-				9AF98E51265DEEC8003AA1F2 /* array_list.c */,
+				9AF98E53265F58CD003AA1F2 /* array_list.h */,
+				9AF98E54265F58CD003AA1F2 /* array_list.c */,
 			);
 			path = AlgorithmC;
 			sourceTree = "<group>";
@@ -124,7 +124,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AF98E47265DE826003AA1F2 /* main.c in Sources */,
-				9AF98E52265DEEC8003AA1F2 /* array_list.c in Sources */,
+				9AF98E55265F58CD003AA1F2 /* array_list.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
