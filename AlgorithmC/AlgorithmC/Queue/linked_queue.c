@@ -20,10 +20,10 @@ struct _LinkedQueue {
     LinkedQueueEntry *tail;
 };
 
-LinkedQueue *linked_queue(void)
+LinkedQueue *linked_queue_new(void)
 {
     LinkedQueue *queue;
-    queue = (LinkedQueue *)malloc(sizeof(LinkedQueueEntry));
+    queue = (LinkedQueue *)malloc(sizeof(LinkedQueue));
     if (queue == NULL)
         return NULL;
     
@@ -69,6 +69,11 @@ Value linked_queue_dequeue(LinkedQueue *queue)
     LinkedQueueEntry *head = queue->head;
     Value value = head->value;
     queue->head = head->next;
+    
+    if (linked_queue_dequeue(queue)) {
+        queue->tail = NULL;
+    }
+    
     free(head);
     return value;
 }
